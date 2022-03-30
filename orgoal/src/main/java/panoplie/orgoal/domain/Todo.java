@@ -1,24 +1,24 @@
-package panoplie.orgoal.todo;
+package panoplie.orgoal.domain;
 
+//저장할 Todo 객체
 public class Todo {
 
-    private int id;
+    private Long id;
     private String text;
     private boolean isFinished;
 
     public Todo() {}
 
-    public Todo(int id, String text, boolean isFinished) {
-        this.id = id;
+    public Todo(String text, boolean isFinished) {
         this.text = text;
         this.isFinished = isFinished;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

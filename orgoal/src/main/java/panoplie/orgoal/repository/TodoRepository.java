@@ -1,14 +1,13 @@
 package panoplie.orgoal.repository;
 
-import panoplie.orgoal.todo.Todo;
+import panoplie.orgoal.domain.Todo;
 
 import java.util.List;
 
 public interface TodoRepository {
     List<Todo> findAll();
-    Todo findTodo(int id);
+    Todo findById(Long id);
     void save(Todo todo);
-    void delete(int id);
-    boolean finish(int id);
-
+    void delete(Long id);
+    void updateFinished(Long id);
 }

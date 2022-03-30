@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import panoplie.orgoal.repository.MemoryTodoRepository;
-import panoplie.orgoal.todo.Todo;
+import panoplie.orgoal.domain.Todo;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ class TodoServiceTest {
     @Test
     @DisplayName("asd")
     void getTodoList() {
-        Todo todo1 = new Todo(1, "test1", false);
-        Todo todo2 = new Todo(2, "test2", false);
-        Todo todo3 = new Todo(3, "test3", false);
+        Todo todo1 = new Todo("test1", false);
+        Todo todo2 = new Todo("test2", false);
+        Todo todo3 = new Todo("test3", false);
 
         todoListRepository.save(todo1);
         todoListRepository.save(todo2);
