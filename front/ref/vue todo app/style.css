@@ -1,0 +1,41 @@
+.horizontalAlign{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.verticalAlign{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.container{
+    min-height: 300px;
+    width : 650px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.inputContainer{
+    text-align: center;
+}
+
+.todoElement{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-content: center;
+    list-style:none;
+    border:1px gray solid;
+    border-radius: 3px;
+    min-height: 100px;
+}
+
+.emptyMessage{
+    text-align: center;
+}
