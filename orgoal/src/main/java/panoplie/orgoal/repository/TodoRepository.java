@@ -9,5 +9,5 @@ public interface TodoRepository {
     Todo findById(Long id);
     void save(Todo todo);
     void delete(Long id);
-    void updateFinished(Long id);
+    void update(Long id, Todo newTodo);
 }

@@ -28,21 +28,16 @@ public class TodoService {
     }
 
     //todo 완료 하기
-    public String finish(Long id) {
-        try {
-            todoRepository.updateFinished(id);
-        }
-        //NullPointerException이 터질 경우 해당 메세지 리턴
-        catch (NullPointerException e) {
-            return "해당 데이터가 존재하지 않음";
-        }
-        //정상적인 경우 OK리턴
-        return "OK";
+    public Todo finish(Long id) throws NullPointerException {
+        Todo todo = todoRepository.findById(id);
+        todo.setFinished(true);
+        todoRepository.update(id, todo);
+        return todo;
     }
 
-    //미구현
-    public int delete(Long id) {
-        return 0;
+    //todo 삭제
+    public void delete(Long id) throws NullPointerException {
+        todoRepository.delete(id);
     }
 
 }

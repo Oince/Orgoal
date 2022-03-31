@@ -23,7 +23,7 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    // /todo 에 get요청
+    // /todo에 get요청
     @GetMapping
     //http 상태 코드 200(Ok)로 설정
     @ResponseStatus(HttpStatus.OK)
@@ -31,30 +31,38 @@ public class TodoController {
         return todoService.getTodoList();
     }
 
-    // /todo 에 post요청
+    // /todo에 post요청
     @PostMapping
     //상태 코드 201로 설정
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTodo(@RequestBody TodoForm todoForm) {
+    public void addTodo(/*자동으로 요청 바디를 json 형식으로 변환*/@RequestBody TodoForm todoForm) {
         //todo 객체 설정
         Todo todo = new Todo(todoForm.getText(), false);
         todoService.add(todo);
     }
 
-    // /todo 에 patch요청
+    // /todo에 patch요청
     @PatchMapping
-    public ResponseEntity<String> patchTodo(@RequestBody Todo todo) {
-        String message = todoService.finish(todo.getId());
-        // message가 OK면 상태 코드를 201로 해서 응답
-        if (message.equals("OK")) {
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Todo> patchTodo(@RequestBody Todo todo) {
+
+        Todo finish;
+        try {
+            finish = todoService.finish(todo.getId());
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        // OK가 아니면 404로 응답
-        else {
-            String errMessage = "404 Error" + '\n' + message;
-            return new ResponseEntity<>(errMessage, HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(finish, HttpStatus.CREATED);
     }
 
+    // /todo에 delete요청
+    @DeleteMapping
+    public ResponseEntity<String> deleteTodo(@RequestBody Todo todo) {
+        try {
+            todoService.delete(todo.getId());
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

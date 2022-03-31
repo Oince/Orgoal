@@ -36,19 +36,16 @@ public class MemoryTodoRepository implements TodoRepository {
         repository.put(todo.getId(), todo);
     }
 
-    //미구현
+    //id에 해당하는 todo 객체 삭제
     @Override
-    public void delete(Long id) {
-
+    public void delete(Long id) throws NullPointerException{
+        repository.remove(id);
     }
 
-    //patch 요청시 해당하는 todo를 찾아서 값 수정
-    //해당하는 id값이 없을 때 NullPointerException이 발생하므로 TodoService 객체에 넘겨서 처리
+    //id에 해당하는 todo를 newTodo로 교체
     @Override
-    public void updateFinished(Long id) throws NullPointerException {
-        Todo todo = repository.get(id);
-        todo.setFinished(true);
-        repository.put(id, todo);
+    public void update(Long id, Todo newTodo) {
+        repository.put(id, newTodo);
     }
 
 
