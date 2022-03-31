@@ -4,21 +4,20 @@
       <input v-model="InputText" />
       <input type="button" value="추가" v-on:click="OnClickAddButton" />
     </div>
-    <ul>
-      <todo-element
+    <ul v-if="todoList.length">
+      <listElement
         v-for="todo in todoList"
-        v-bind:key="todo.text"
-        v-bind:text="todo.text"
+        :key="todo.id"
+        :todo="todo"
+        @remove="RemoveTodo"
       />
-      <div class="emptyMessage" v-if="todoList.length == 0">
-        할 일이 없습니다!
-      </div>
     </ul>
+    <div class="emptyMessage" v-else>할 일이 없습니다!</div>
   </div>
 </template>
 
 <script>
-import todoElement from "./listElement.vue";
+import listElement from "./listElement.vue";
 
 export default {
   name: "TodoApp",
@@ -26,12 +25,16 @@ export default {
     todoData: Array,
   },
   components: {
-    todoElement,
+    listElement,
   },
   data() {
     return {
       InputText: "",
-      todoList: [{ text: "hi" }, { text: "bye" }],
+      todoList: [
+        { id: 0, text: "hi" },
+        { id: 1, text: "bye" },
+        { id: 2, text: "??" },
+      ],
     };
   },
   methods: {
@@ -49,6 +52,13 @@ export default {
     AddTodo: function () {
       this.todoList.push({ text: this.InputText });
       console.log(this.todoList);
+    },
+    RemoveTodo: function (id) {
+      this.todoList.splice(id, 1);
+      for (var i = id; i < this.todoList.length; i++) {
+        this.todoList[i].id--;
+      }
+      //console.log(this.todoList);
     },
   },
 };

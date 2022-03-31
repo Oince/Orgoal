@@ -1,12 +1,19 @@
 <template>
-  <li class="todoElement" v-for="todo in todoList" v-bind:key="todo.text">
+  <li class="todoElement">
     <div class="checkBox">
       <input type="checkbox" v-on:click="OnCheckBoxClick" />
     </div>
     <div>
       {{ todo.text }}
     </div>
-    <div class="deleteButton" v-on:click="OnClickDeleteButton">
+    <div
+      class="deleteButton"
+      @click="
+        () => {
+          $emit('remove', todo.id);
+        }
+      "
+    >
       <span>삭제</span>
     </div>
   </li>
@@ -14,11 +21,11 @@
 
 <script>
 export default {
-  name: "todoElement",
-  components: {},
   props: {
-    text: String,
+    todo: {
+      type: Object,
+      required: true,
+    },
   },
-  methods: {},
 };
 </script>
