@@ -1,4 +1,4 @@
-# todoapp
+# orgoal
 
 ## Project setup
 ```
