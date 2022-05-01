@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import * as VueRouter from 'vue-router';
+import store from './store';
 
+// 주소와 vue 컴포넌트 매칭
 const routes = [
     { path: '/', component: () => import('./components/Home.vue') },
     { path: '/index', redirect: '/' },
@@ -16,5 +18,6 @@ const router = VueRouter.createRouter({
 })
 
 const orgoal = createApp(App);
+orgoal.use(store);
 orgoal.use(router);
 orgoal.mount('#app');
