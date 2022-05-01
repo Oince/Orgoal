@@ -2,8 +2,9 @@
 export const User = {
     namespaced: true,   // namespace 옵션 활성화해서 state들 관리하기
     state: () => ({
-        username: "test",
-        loginToken: null
+        userID: 'test@example.com',
+        username: 'test',
+        token: '',
     }),
     mutations: {
 

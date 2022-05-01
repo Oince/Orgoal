@@ -6,7 +6,7 @@
 
 <script>
 import { computed } from "vue"; // computed 속성 사용을 위해 필요
-import { useStore } from "vuex";
+import { useStore } from "vuex"; // vuex 스토리지 사용
 import navbar from "./components/NavBar.vue";
 
 export default {

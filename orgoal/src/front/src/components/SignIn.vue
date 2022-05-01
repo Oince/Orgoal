@@ -1,6 +1,10 @@
-<template>여기에 회원가입 화면 만들기</template>
+<template>여기에 로그인 화면 만들기</template>
+
 <script>
 export default {
-  name: "SignUpPage",
+  name: "LoginPage",
 };
 </script>
+
+<style scoped>
+</style>
