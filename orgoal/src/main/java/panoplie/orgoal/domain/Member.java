@@ -2,35 +2,37 @@ package panoplie.orgoal.domain;
 
 public class Member {
 
-    private long id;
-    private String email;
+    private String id;
     private String nickname;
-    private String passwd;
-    private PasswdQuestion question;
+    private String password;
+    private String question;
     private String answer;
 
-    public long getId() {
+    public Member(String id, String nickname, String password, String question, String answer) {
+        this.id = id;
+        this.nickname = nickname;
+        this.password = password;
+        this.question = question;
+        this.answer = answer;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id='" + id + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                "}\n";
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public Member(SignUpForm signUpForm) {
-        email = signUpForm.getEmail();
-        nickname = signUpForm.getNickname();
-        passwd = signUpForm.getPasswd();
-        question = signUpForm.getQuestion();
-        answer = signUpForm.getAnswer();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getNickname() {
@@ -41,19 +43,19 @@ public class Member {
         this.nickname = nickname;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public PasswdQuestion getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(PasswdQuestion question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
@@ -65,3 +67,8 @@ public class Member {
         this.answer = answer;
     }
 }
+
+
+
+
+

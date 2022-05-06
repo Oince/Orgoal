@@ -3,7 +3,7 @@ package panoplie.orgoal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import panoplie.orgoal.domain.SignUpForm;
+import panoplie.orgoal.domain.Member;
 import panoplie.orgoal.service.MemberService;
 
 @RestController
@@ -19,8 +19,8 @@ public class SignUpController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    void signUp(@RequestBody SignUpForm signUpForm) {
-        memberService.signUp(signUpForm);
+    void signUp(@RequestBody Member member) {
+        memberService.signUp(member);
     }
 
 

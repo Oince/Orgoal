@@ -9,23 +9,25 @@ import java.util.Map;
 @Repository
 public class MemoryMemberRepository implements MemberRepository{
 
-    private static final Map<Long, Member> store = new HashMap<>();
-    private static Long sequence = 0L;
+    private static final Map<String, Member> store = new HashMap<>();
 
     @Override
     public Member save(Member member) {
-        member.setId(++sequence);
         store.put(member.getId(), member);
         return member;
     }
 
     @Override
-    public Member findByEmail(String email) {
-        for (Member member : store.values()) {
-            if (member.getEmail().equals(email)) {
-                return member;
+    public Member findById(String id) {
+
+        for (String s : store.keySet()) {
+            if (s.equals(id)) {
+                return store.get(s);
             }
         }
+
         return null;
     }
+
+
 }
