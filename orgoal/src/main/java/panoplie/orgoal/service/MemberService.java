@@ -6,6 +6,8 @@ import panoplie.orgoal.domain.LoginForm;
 import panoplie.orgoal.domain.Member;
 import panoplie.orgoal.repository.MemberRepository;
 
+import java.security.MessageDigest;
+
 @Service
 public class MemberService {
 
@@ -17,6 +19,7 @@ public class MemberService {
     }
 
     public void signUp(Member member) {
+
         memberRepository.save(member);
     }
 

@@ -18,10 +18,12 @@ public class Member {
 
     @Override
     public String toString() {
+
+
         return "Member{" +
                 "id='" + id + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + password.substring(0, 10) + '\'' +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 "}\n";

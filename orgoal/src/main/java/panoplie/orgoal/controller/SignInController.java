@@ -30,7 +30,6 @@ public class SignInController {
     @PostMapping
     public ResponseEntity login(@RequestBody LoginForm loginForm, HttpServletRequest request) {
         Member member = memberService.signIn(loginForm);
-//        HttpSession session = request.getSession();
         if (member == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
