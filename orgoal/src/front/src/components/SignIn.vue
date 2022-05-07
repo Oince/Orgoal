@@ -10,7 +10,7 @@
           class="input_text"
           ref="memberIdInput"
           v-model.trim="memberId"
-          placeholder="아이디"
+          placeholder="아이디 (이메일)"
         />
       </p>
       <p>
@@ -25,8 +25,8 @@
         />
       </p>
       <p class="buttons">
-        <button @click.prevent="doSignin" class="button blue">로그인</button>
-        <button @click.prevent="doCancel" class="button">취소</button>
+        <button @click.prevent="doSignin()" class="button blue">로그인</button>
+        <button @click.prevent="doCancel()" class="button">취소</button>
       </p>
     </form>
     <p>{{ errorMessage }}</p>
@@ -36,15 +36,14 @@
 <script>
 export default {
   name: "SignIn",
-  data: function () {
-    return {
-      memberId: "",
-      memberPassword: "",
-      errorMessage: "",
-    };
-  },
-  methods: {
-    doSignin() {
+  setup: function () {
+    // data
+    let memberId = "";
+    let memberPassword = "";
+    let errorMessage = "";
+
+    // methods
+    const doSignin = function () {
       if (this.memberId == "") {
         alert("아이디를 입력하세요.");
         this.$refs.memberIdInput.focus();
@@ -54,19 +53,23 @@ export default {
         this.$refs.memberPasswordInput.focus();
         return;
       }
-      let memberInfo = { id: this.memberId, password: this.memberPassword };
+      let memberInfo = {
+        id: this.memberId,
+        password: this.memberPassword,
+      };
       this.$store
         .dispatch("signinStore/doSignin", memberInfo)
         .then(() => {
-          // this.$router.push( url );
+          this.$router.push("/");
         })
         .catch((err) => {
           this.errorMessage = err.response.data.errormessage;
         });
-    },
-    doCancel() {
+    };
+    const doCancel = function () {
       this.$router.push("../");
-    },
+    };
+    return { memberId, memberPassword, errorMessage, doSignin, doCancel };
   },
   mounted() {
     this.$refs.memberIdInput.focus();
