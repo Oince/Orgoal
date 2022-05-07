@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/signin")
 public class SignInController {
 
     private final MemberService memberService;
@@ -28,11 +28,14 @@ public class SignInController {
     }
 
     @PostMapping
-    public ResponseEntity login(@RequestBody LoginForm loginForm, HttpServletRequest request) {
+    public ResponseEntity login(@RequestBody LoginForm loginForm) {
         Member member = memberService.signIn(loginForm);
+
         if (member == null) {
+            System.out.println("실패");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
+            System.out.println("성공");
             return new ResponseEntity(HttpStatus.OK);
         }
 

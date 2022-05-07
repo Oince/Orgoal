@@ -2,11 +2,21 @@ package panoplie.orgoal.domain;
 
 public class LoginForm {
     private String id;
-    private String passwd;
+    private String password;
 
-    public LoginForm(String id, String passwd) {
+    public LoginForm() {}
+
+    public LoginForm(String id, String password) {
         this.id = id;
-        this.passwd = passwd;
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginForm{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -17,11 +27,11 @@ public class LoginForm {
         this.id = id;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

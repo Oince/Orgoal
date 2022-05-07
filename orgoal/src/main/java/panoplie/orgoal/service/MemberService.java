@@ -6,8 +6,6 @@ import panoplie.orgoal.domain.LoginForm;
 import panoplie.orgoal.domain.Member;
 import panoplie.orgoal.repository.MemberRepository;
 
-import java.security.MessageDigest;
-
 @Service
 public class MemberService {
 
@@ -28,7 +26,8 @@ public class MemberService {
         if (member == null) {
             return null;
         }
-        if (member.getPassword().equals(loginForm.getPasswd())) {
+        member.setPassword(member.getPassword().trim());
+        if (member.getPassword().equals(loginForm.getPassword())) {
             return member;
         } else {
             return null;
