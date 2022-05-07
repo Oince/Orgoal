@@ -1,6 +1,5 @@
 package panoplie.orgoal.repository;
 
-import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Member;
 
 import java.util.HashMap;
