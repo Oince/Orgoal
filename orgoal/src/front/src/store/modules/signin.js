@@ -51,7 +51,7 @@ const signinStore = {
           console.log("로그인 실패");
           let err = new Error("Request failed with status code 401");
           err.response = {
-            data: { success: false, errormessage: "로그인되지 않았습니다." },
+            data: { success: false, errormessage: "로그인에 실패했습니다." },
           };
           resultErr = err;
         }
