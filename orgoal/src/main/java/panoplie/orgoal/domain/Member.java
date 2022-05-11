@@ -2,39 +2,62 @@ package panoplie.orgoal.domain;
 
 public class Member {
 
-    private String id;
-    private String nickname;
+    private int mid;
+    private String email;
     private String password;
+    private String nickname;
     private String question;
     private String answer;
 
-    public Member(String id, String nickname, String password, String question, String answer) {
-        this.id = id;
-        this.nickname = nickname;
+    public Member() {}
+
+    public Member(SignUpForm signUpForm) {
+        this(signUpForm.getEmail(), signUpForm.getPassword(), signUpForm.getNickname(), signUpForm.getQuestion(), signUpForm.getAnswer());
+    }
+
+    public Member(String email, String password, String nickname, String question, String answer) {
+        this.email = email;
         this.password = password;
+        this.nickname = nickname;
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public Member(int mid, String email, String password, String nickname, String question, String answer) {
+        this.mid = mid;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
         this.question = question;
         this.answer = answer;
     }
 
     @Override
     public String toString() {
-
-
         return "Member{" +
-                "id='" + id + '\'' +
+                "mid='" + mid + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", password='" + password.substring(0, 10) + '\'' +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                "}\n";
+                '}';
     }
 
-    public String getId() {
-        return id;
+    public int getMid() {
+        return mid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNickname() {

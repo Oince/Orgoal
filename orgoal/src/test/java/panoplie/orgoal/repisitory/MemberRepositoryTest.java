@@ -1,4 +1,4 @@
-package panoplie.orgoal.mapper;
+package panoplie.orgoal.repisitory;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,19 +24,12 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("회원 저장")
+    @DisplayName("회원 저장 & 회원 찾기")
     void saveMember() {
-        Member member = new Member("가나다", "바보", "asdf1234", "PETNAME", "멍멍이");
+        Member member = new Member(1, "가나다", "바보", "asdf1234", "PETNAME", "멍멍이");
         memberRepository.save(member);
-        Member findbyId = memberRepository.findById(member.getId());
-        assertEquals(member.getId(), findbyId.getId());
+        Member findId = memberRepository.findByEmail(member.getEmail());
+        assertEquals(member.getEmail(), findId.getEmail());
     }
 
-    @Test
-    @DisplayName("회원 찾기")
-    void findByID() {
-        String id = "hky0105@naver.com";
-        Member member = memberRepository.findById(id);
-        assertEquals(id, member.getId());
-    }
 }

@@ -2,27 +2,42 @@ package panoplie.orgoal.repository;
 
 import panoplie.orgoal.domain.Member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class MemoryMemberRepository{
+//테스트용 메모리DB
+public class MemoryMemberRepository implements MemberRepository{
 
-    private static final Map<String, Member> store = new HashMap<>();
+    private static final Map<Integer, Member> store = new HashMap<>();
+    private static int mid = 0;
 
-    public Member save(Member member) {
-        store.put(member.getId(), member);
-        return member;
+    @Override
+    public List<Member> getMembers() {
+        return new ArrayList<>(store.values());
     }
 
-    public Member findById(String id) {
+    @Override
+    public void save(Member member) {
+        member.setMid(++mid);
+        store.put(member.getMid(), member);
+    }
 
-        for (String s : store.keySet()) {
-            if (s.equals(id)) {
-                return store.get(s);
+    @Override
+    public Member findByEmail(String email) {
+
+        for (Member member : store.values()) {
+            if (member.getEmail().equals(email)) {
+                return member;
             }
         }
 
         return null;
+    }
+
+    public void clearStore() {
+        store.clear();
     }
 
 

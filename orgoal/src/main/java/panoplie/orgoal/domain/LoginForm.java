@@ -1,30 +1,30 @@
 package panoplie.orgoal.domain;
 
 public class LoginForm {
-    private String id;
+    private String email;
     private String password;
 
     public LoginForm() {}
 
-    public LoginForm(String id, String password) {
-        this.id = id;
+    public LoginForm(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
     @Override
     public String toString() {
         return "LoginForm{" +
-                "id='" + id + '\'' +
+                "id='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
