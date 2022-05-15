@@ -9,6 +9,7 @@ import panoplie.orgoal.domain.LoginForm;
 import panoplie.orgoal.domain.Member;
 import panoplie.orgoal.domain.SignUpForm;
 import panoplie.orgoal.repository.MemberRepository;
+import panoplie.orgoal.security.JwtTokenProvider;
 import panoplie.orgoal.security.SHA256;
 
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +48,7 @@ public class MemberService {
         return byEmail != null;
     }
 
-    public Member signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException {
+    public String signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException {
 
         //email로 찾아서 member 가져옴
         Member member = memberRepository.findByEmail(loginForm.getEmail());
@@ -62,7 +63,7 @@ public class MemberService {
 
         //같으면 member 리턴, 다르면 null 리턴
         if (member.getPassword().equals(loginForm.getPassword())) {
-            return member;
+            return JwtTokenProvider.createToken(member.getEmail());
         } else {
             return null;
         }

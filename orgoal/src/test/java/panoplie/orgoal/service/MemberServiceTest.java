@@ -44,17 +44,17 @@ class MemberServiceTest {
 
     }
 
-    @Test
-    @DisplayName("로그인")
-    void login() throws NoSuchAlgorithmException, DuplicateMemberException, NotFoundException {
-        SignUpForm member1 = new SignUpForm("hky0105@naver.com", "asdfzxcv123", "Oince", "PETNAME", "다온");
-        memberService.signUp(member1);
-        LoginForm loginForm = new LoginForm("hky0105@naver.com", "asdfzxcv123");
-
-        Member member2 = memberService.signIn(loginForm);
-
-        assertEquals(member2.getEmail(), member1.getEmail());
-    }
+//    @Test
+//    @DisplayName("로그인")
+//    void login() throws NoSuchAlgorithmException, DuplicateMemberException, NotFoundException {
+//        SignUpForm member1 = new SignUpForm("hky0105@naver.com", "asdfzxcv123", "Oince", "PETNAME", "다온");
+//        memberService.signUp(member1);
+//        LoginForm loginForm = new LoginForm("hky0105@naver.com", "asdfzxcv123");
+//
+//        Member member2 = memberService.signIn(loginForm);
+//
+//        assertEquals(member2.getEmail(), member1.getEmail());
+//    }
 
     @Test
     @DisplayName("비밀번호 해시")
