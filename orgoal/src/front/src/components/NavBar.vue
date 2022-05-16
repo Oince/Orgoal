@@ -2,8 +2,7 @@
   <div class="navbar">
     <div class="desktop_container">
       <div class="content">
-        <router-link to="/">
-          <span class="logo">로고</span>
+        <router-link to="/" class="logo">
           <span>ORGOAL</span>
         </router-link>
         <div class="navbar-menu">
@@ -61,9 +60,15 @@ export default {
 }
 .content {
   display: flex;
-  width: 1280px;
+  width: 800px;
   margin: 0 auto;
   justify-content: space-between;
+  padding: 1em 0;
+}
+.logo {
+  flex:0 0 200px;
+  text-align: left;
+  font-size : 24pt;
 }
 .navbar-menu {
   width: 1080px;
