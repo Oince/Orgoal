@@ -65,7 +65,7 @@ public class MemberService {
         if (member.getPassword().equals(loginForm.getPassword())) {
             return JwtTokenProvider.createToken(member.getEmail());
         } else {
-            return null;
+            throw new NotFoundException("Password match failed");
         }
     }
 

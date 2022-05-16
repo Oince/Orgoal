@@ -26,7 +26,7 @@ class MemberRepositoryTest {
     @Test
     @DisplayName("전제 회원 가져오기")
     void getMember() {
-        List<Member> members = memberRepository.getMembers();
+        List<Member> members = memberRepository.findAll();
 
         assertEquals(21, members.get(0).getMid());
     }
