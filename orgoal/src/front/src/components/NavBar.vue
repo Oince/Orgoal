@@ -15,11 +15,11 @@
           </div>
           <div class="navbar-right">
             <!--로그인 여부에 따라 조건부 렌더링-->
-            <div v-if="!isLoggedIn()">
+            <div v-if="!isSignedin">
               <router-link to="/signin"><button>로그인</button></router-link>
               <router-link to="/signup"><button>회원가입</button></router-link>
             </div>
-            <div v-if="isLoggedIn()">
+            <div v-if="isSignedin">
               <span>{{ username }}님 </span>
               <router-link to="/mypage"
                 ><button>마이페이지</button></router-link
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -41,16 +42,14 @@ export default {
   setup: function () {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
-    const username = store.state.User.username; // vuex store에서 불러온 값을 컴포넌트의 변수에 저장
-    const userToken = store.state.User.token;
+    const isSignedin = computed(() => store.getters["signin/hasToken"]);
 
     //methods
-    const isLoggedIn = function () {
-      if (userToken === "") return false;
-      else return true;
-    };
+    // const isSignedin = function () {
+    //   return computed(() => store.getters["signin/hasToken"]);
+    // };
 
-    return { username, isLoggedIn };
+    return { isSignedin };
   },
 };
 </script>

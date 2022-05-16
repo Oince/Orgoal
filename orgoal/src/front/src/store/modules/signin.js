@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const signinStore = {
+export const signin = {
   namespaced: true,
   state: {
     memberId: "",
     accessToken: "",
   },
   getters: {
-    isSignin(state) {
-      return state.accessToken == "" ? false : true;
+    hasToken(state) {
+      return state.accessToken === "" ? false : true;
     },
   },
   mutations: {
@@ -78,5 +78,3 @@ const signinStore = {
     },
   },
 };
-
-export default signinStore;

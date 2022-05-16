@@ -34,10 +34,14 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
   name: "SignIn",
   setup: function () {
     // data
+    const store = useStore();
+
     let memberId = "";
     let memberPassword = "";
     let errorMessage = "";
@@ -57,7 +61,7 @@ export default {
         id: this.memberId,
         password: this.memberPassword,
       };
-      this.$store
+      store
         .dispatch("signinStore/doSignin", memberInfo)
         .then(() => {
           this.$router.push("/");
