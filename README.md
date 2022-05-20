@@ -63,16 +63,15 @@ Create table activity (
 
 ### 개요
 - /
-  - /signup
-  - /signin
+  - /signup 완료
+  - /signin 완료
   - /search
   - /mypage/info
   - /mypage/activity
-  - /newactivity
-  - /activity/{id}
-    - /activity/{id}/apply
+  - /activity
+    - /activity/{id}
     - /activity/{id}/list
-    - /activity/{id}/submit
+    - /activity/{id}/?submit
   - /notification/info
 
 ### POST /signup
@@ -99,6 +98,7 @@ Create table activity (
 ### GET /search?tag=""&query=""
 액티비티 검색 API  
 쿼리 스트링 tag, query 사용  
+
 - req : x
 - res
   - aid     액티비티 id
@@ -124,7 +124,7 @@ mypage 액티비티 정보 API
   - title   액티비티 제목
   - state   액티비티 상태
 
-### POST /newactivity
+### POST /activity
 액티비티 등록 API
 - req
   - 로그인 토큰
@@ -149,7 +149,7 @@ mypage 액티비티 정보 API
 
 이 이후의 API는 관련 DB 설계 전이기 때문에 변경 가능성이 있음
 
-### POST /activity/{id}/apply
+### POST /activity/{id}
 액티비티 신청 API  
 - req
   - 로그인 토큰
@@ -161,6 +161,7 @@ mypage 액티비티 정보 API
 ### GET /activity/{id}/list
 해당 액티비티의 신청자를 가져오는 API  
 로그인 토큰을 통해 액티비티 게시자만 접근 가능
+
 - req   
   - 로그인 토큰
 - res
@@ -168,9 +169,10 @@ mypage 액티비티 정보 API
   - nickname 신청자 닉네임
   - answer 신청자의 질문 내용
 
-### POST /activity/{id}/submit?email=""
+### POST /activity/{id}/accept?email=""
 해당 액티비티 신청자의 신청을 수락하는 API  
 email 쿼리 스트링 사용
+
 - req
   - 로그인 토큰
 - res
@@ -184,4 +186,3 @@ email 쿼리 스트링 사용
 - res
   - state 신청 수락 or 요청
   - aid   해당 액티비티 id
->>>>>>> login
