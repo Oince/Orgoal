@@ -1,4 +1,4 @@
-package panoplie.orgoal.repisitory;
+package panoplie.orgoal.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

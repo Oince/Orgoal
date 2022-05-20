@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import panoplie.orgoal.domain.LoginForm;
+import panoplie.orgoal.security.Token;
 import panoplie.orgoal.service.MemberService;
 
 import java.security.NoSuchAlgorithmException;
@@ -25,7 +26,7 @@ public class SignInController {
     }
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
+    public ResponseEntity<Token> login(@RequestBody LoginForm loginForm) {
 
         String token;
 
@@ -35,20 +36,17 @@ public class SignInController {
         }
         catch (NotFoundException e) {
             //로그인 실패시 401 코드 반환
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         catch (NoSuchAlgorithmException e) {
             //비밀번호 해시 과정에서 오류시 500 코드 반환
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        //비밀번호가 일치하지 않으면 401 코드 리턴
-        if (token == null) {
-            return new ResponseEntity<>("password match failed", HttpStatus.UNAUTHORIZED);
-        }
+        Token createdToken = new Token(token);
 
         //정상적으로 성공시 200 코드 반환
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>(createdToken, HttpStatus.OK);
 
 
     }

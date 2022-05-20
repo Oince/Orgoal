@@ -43,7 +43,7 @@ public class MemberService {
     }
 
     //중복된 회원인지를 판단하는 메소드
-    public boolean isDuplicate(Member member) {
+    private boolean isDuplicate(Member member) {
         Member byEmail = memberRepository.findByEmail(member.getEmail());
         return byEmail != null;
     }
@@ -65,9 +65,12 @@ public class MemberService {
         if (member.getPassword().equals(loginForm.getPassword())) {
             return JwtTokenProvider.createToken(member.getEmail());
         } else {
-            return null;
+            throw new NotFoundException("Password not match");
         }
     }
 
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
 }
