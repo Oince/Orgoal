@@ -29,7 +29,7 @@ public class MemberService {
         //회원가입 폼으로 member 객체 생성
         Member member = new Member(signUpForm);
 
-        //이미 존재하는 회원이라면 null 리턴
+        //이미 존재하는 회원이라면 예외 발생
         if (isDuplicate(member)) {
             throw new DuplicateMemberException("Duplicated");
         }
@@ -52,7 +52,7 @@ public class MemberService {
 
         //email로 찾아서 member 가져옴
         Member member = memberRepository.findByEmail(loginForm.getEmail());
-        //null이면 member가 존재하지 않는 것, null 리턴
+        //null이면 member가 존재하지 않는 것, 예외 던짐
         if (member == null) {
             throw new NotFoundException("Not exist");
         }
@@ -61,7 +61,7 @@ public class MemberService {
         String encryptPassword = SHA256.encrypt(loginForm.getPassword());
         loginForm.setPassword(encryptPassword);
 
-        //같으면 member 리턴, 다르면 null 리턴
+        //같으면 member 리턴, 다르면 예외 던짐
         if (member.getPassword().equals(loginForm.getPassword())) {
             return JwtTokenProvider.createToken(member.getEmail());
         } else {

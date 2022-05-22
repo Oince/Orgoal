@@ -24,4 +24,5 @@ public interface MemberRepository {
     @Select("Select * from member " +
             "where email = #{email}")
     Member findByEmail(String email);
+
 }

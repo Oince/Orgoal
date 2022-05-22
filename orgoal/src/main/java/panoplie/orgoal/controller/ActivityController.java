@@ -5,10 +5,8 @@ import io.jsonwebtoken.SignatureException;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import panoplie.orgoal.domain.Activity;
 import panoplie.orgoal.security.JwtTokenProvider;
 import panoplie.orgoal.security.UserClaim;
@@ -45,7 +43,7 @@ public class ActivityController {
         try {
             activityService.createActivity(activity, email);
         } catch (NotFoundException e) {
-            Message message = new Message(HttpStatus.NO_CONTENT.value(), e.getMessage(), new Date());
+            Message message = new Message(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Date());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
@@ -53,12 +51,15 @@ public class ActivityController {
 
     }
 
-//
-//    //액티비티에 대한 정보를 제공함, 해당 액티비티 aid와 토큰을 받음
-//    @GetMapping("/{aid}")
-//    public Activity getActivity(@PathVariable String aid, HttpServletRequest request) {
-//
-//    }
+
+    //액티비티에 대한 정보를 제공함, 해당 액티비티 aid와 토큰을 받음
+    @GetMapping("/{aid}")
+    public ResponseEntity<Activity>  getActivity(@PathVariable String aid, HttpServletRequest request) {
+        //예외처리 하기
+        Activity activity = activityService.getActivity(Integer.parseInt(aid));
+        return new ResponseEntity<>(activity, HttpStatus.OK);
+
+    }
 
 //    //액티비티에 신청 요청을 함, 해당 액티비티 aid와 질문 답변 내용, 토큰을 받음
 //    @PostMapping("/{aid}")

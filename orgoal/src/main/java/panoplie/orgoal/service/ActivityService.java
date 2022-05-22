@@ -25,13 +25,20 @@ public class ActivityService {
 
         Member member = memberService.findByEmail(email);
         if (member == null) {
-            throw new NotFoundException("Not exist");
+            throw new NotFoundException("Not exist member");
         }
 
         activity.setMid(member.getMid());
         activity.setState('R');
         activity.setLastModification(new Date());
         activityRepository.save(activity);
+    }
+
+    public Activity getActivity(int aid) {
+        Activity activity = activityRepository.findById(aid);
+
+        return activity;
+
     }
 
 }

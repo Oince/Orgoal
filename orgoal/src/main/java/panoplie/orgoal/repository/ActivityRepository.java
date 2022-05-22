@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface ActivityRepository {
 
-
     @Select("Select distinct * from activity " +
             "where title like '%' || #{query} || '%' or content like '%' || #{query} || '%'")
     List<Activity> search(String query);
@@ -21,10 +20,5 @@ public interface ActivityRepository {
 
     @Insert("Insert into activity values(activity_seq.nextval, #{act.title}, #{act.content}, #{act.state}, #{act.mid}, #{act.lastModification})")
     void save(@Param("act") Activity activity);
-
-
-
-
-
 
 }
