@@ -58,11 +58,11 @@ export default {
         return;
       }
       let memberInfo = {
-        id: this.memberId,
+        email: this.memberId,
         password: this.memberPassword,
       };
       store
-        .dispatch("signinStore/doSignin", memberInfo)
+        .dispatch("signin/doSignin", memberInfo)
         .then(() => {
           this.$router.push("/");
         })
