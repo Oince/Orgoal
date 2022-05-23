@@ -8,8 +8,8 @@
         <div class="navbar-menu">
           <div class="navbar-left">
             <div class="search">
-              <input type="text" />
-              <button>검색</button>
+              <input v-model="searchText" />
+              <button @click="onClickSearchButton">검색</button>
             </div>
           </div>
           <div class="navbar-right">
@@ -42,13 +42,20 @@ export default {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
+    let searchText = "";
 
     //methods
-    // const isSignedin = function () {
-    //   return computed(() => store.getters["signin/hasToken"]);
-    // };
+    let onClickSearchButton = function () {
+      if (this.searchText == "") {
+        alert("검색어를 입력하세요");
+        return;
+      }
+      // TODO : 쿼리문 외에 태그를 사용한 검색도 구현하기
+      this.$router.push({ name: "search", query: { query: this.searchText } });
+      console.log(this.searchText);
+    };
 
-    return { isSignedin };
+    return { isSignedin, searchText, onClickSearchButton };
   },
 };
 </script>
@@ -66,9 +73,9 @@ export default {
   padding: 1em 0;
 }
 .logo {
-  flex:0 0 200px;
+  flex: 0 0 200px;
   text-align: left;
-  font-size : 24pt;
+  font-size: 24pt;
 }
 .navbar-menu {
   width: 1080px;
