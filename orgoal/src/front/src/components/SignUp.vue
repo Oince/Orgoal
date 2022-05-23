@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
 export default {
   name: "SignUp",
   setup: function () {
@@ -86,6 +87,8 @@ export default {
     let passwordQuestion = "";
     let passwordAnswer = "";
     let errorMessage = "";
+
+    const store = useStore();
 
     // methods
     const doSignup = function () {
@@ -122,7 +125,7 @@ export default {
         question: this.passwordQuestion,
         answer: this.passwordAnswer,
       };
-      this.$store
+      store
         .dispatch("signup/doSignup", signupInfo)
         .then(() => {
           this.$router.push("/signin");
