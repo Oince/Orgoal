@@ -3,14 +3,14 @@
     <h1>Orgoal</h1>
     <form class="signinform">
       <p>
-        <label for="memberIdInput">ID</label>
+        <label for="emailInput">ID</label>
         <input
           type="text"
-          id="memberIdInput"
+          id="emailInput"
           class="input_text"
-          ref="memberIdInput"
-          v-model.trim="memberId"
-          placeholder="아이디 (이메일)"
+          ref="emailInput"
+          v-model.trim="email"
+          placeholder="아이디"
         />
       </p>
       <p>
@@ -34,19 +34,23 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
   name: "SignIn",
   setup: function () {
     // data
-    let memberId = "";
+    const store = useStore();
+
+    let email = "";
     let memberPassword = "";
     let errorMessage = "";
 
     // methods
     const doSignin = function () {
-      if (this.memberId == "") {
+      if (this.email == "") {
         alert("아이디를 입력하세요.");
-        this.$refs.memberIdInput.focus();
+        this.$refs.emailInput.focus();
         return;
       } else if (this.memberPassword == "") {
         alert("비밀번호를 입력하세요.");
@@ -54,11 +58,11 @@ export default {
         return;
       }
       let memberInfo = {
-        id: this.memberId,
+        email: this.email,
         password: this.memberPassword,
       };
-      this.$store
-        .dispatch("signinStore/doSignin", memberInfo)
+      store
+        .dispatch("signin/doSignin", memberInfo)
         .then(() => {
           this.$router.push("/");
         })
@@ -66,13 +70,15 @@ export default {
           this.errorMessage = err.response.data.errormessage;
         });
     };
+
     const doCancel = function () {
       this.$router.push("../");
     };
-    return { memberId, memberPassword, errorMessage, doSignin, doCancel };
+
+    return { email, memberPassword, errorMessage, doSignin, doCancel };
   },
   mounted() {
-    this.$refs.memberIdInput.focus();
+    this.$refs.emailInput.focus();
   },
 };
 </script>
