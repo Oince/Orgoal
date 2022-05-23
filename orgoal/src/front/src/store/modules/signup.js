@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const signupStore = {
+export const signup = {
   namespaced: true,
   state: {},
   getters: {},
@@ -18,7 +18,8 @@ const signupStore = {
         //     question: this.passwordQuestion,
         //     answer: this.passwordAnswer,
         //   };
-        let res = await axios.post("http://localhost:8080/signup", signupInfo);
+        let hostname = window.location.hostname;
+        let res = await axios.post(hostname + "/signup", signupInfo);
         /* 응답 객체 res
           {
             "data": {
@@ -26,7 +27,7 @@ const signupStore = {
             }
           }
         */
-        if (res.data.success == true) {
+        if (res.status == 201) {
           console.log("회원가입 성공");
           result = true;
         } else {
@@ -56,5 +57,3 @@ const signupStore = {
     },
   },
 };
-
-export default signupStore;
