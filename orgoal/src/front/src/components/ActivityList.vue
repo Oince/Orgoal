@@ -50,7 +50,7 @@ export default {
   mounted() {
     const axios = require('axios').default;
     const hostName = window.location.hostname;  // 호스트 주소 바뀌어도 대응 가능
-    const URI = hostName + '/activity/';    // API 이거 맞나? 확인 필요
+    const URI = hostName + '/search?tag=""&query=""';    // API 이거 맞나? 확인 필요
     axios.get(URI)
       .then((response) => {
         console.log("Loaded Activity List");  // for Debug
