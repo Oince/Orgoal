@@ -27,7 +27,7 @@ export const newactivity = {
         // }
 
         const hostname = window.location.hostname;
-        const URI = hostname + "/newactivity";
+        const URI = hostname + "/activity";
         let res = await axios.post(URI, newactivityInfo);
         /* 응답 객체 res
           {

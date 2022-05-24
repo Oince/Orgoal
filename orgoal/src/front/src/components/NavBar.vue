@@ -20,10 +20,11 @@
               <router-link to="/signup"><button>회원가입</button></router-link>
             </div>
             <div v-if="isSignedin">
-              <span>{{ username }}님 </span>
+              <span>{{ nickname }}님 </span>
               <router-link to="/mypage"
                 ><button>마이페이지</button></router-link
               >
+              <button @click.prevent="doLogout()">로그아웃</button>
             </div>
           </div>
         </div>
@@ -43,10 +44,19 @@ export default {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
-
+    const nickname = computed(() => store.getters["nickname/getNickname"]);
     //methods
-
-    return { isSignedin };
+    const doLogout = function () {
+      store
+        .dispatch("signin/doLogout")
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    return { isSignedin, nickname, doLogout };
   },
 };
 </script>

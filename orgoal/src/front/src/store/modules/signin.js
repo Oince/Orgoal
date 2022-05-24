@@ -3,29 +3,20 @@ import axios from "axios";
 export const signin = {
   namespaced: true,
   state: () => ({
-    // nickname: "",
     token: "",
   }),
   getters: {
-    // getNickname(state) {
-    //   return state.nickname;
-    // },
     hasToken(state) {
       return state.token == "" ? false : true;
     },
   },
   mutations: {
-    // nickname 설정
-    // setNickname(state, nickname) {
-    //   state.nickname = nickname;
-    // },
-    // accessToken 설정
+    // token 설정
     setToken(state, token) {
       state.token = token;
     },
     // 초기화
     reset(state) {
-      // state.nickname = "";
       state.token = "";
     },
   },
@@ -42,19 +33,17 @@ export const signin = {
         /* 응답 객체 res
           {
             "data": {
-              "nickname": dongha
               "token": abcd1234
             }
           }
         */
         if (res.status == 200) {
           console.log("로그인 성공");
-          // commit("setNickname", res.data.nickname);
           commit("setToken", res.data.token);
           result = true;
         } else {
           console.log("로그인 실패");
-          let err = new Error("Request failed with status code 401");
+          let err = new Error("Request failed with status code 401!");
           err.response = {
             data: { success: false, errormessage: "로그인에 실패했습니다." },
           };

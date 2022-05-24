@@ -64,6 +64,10 @@ export default {
       store
         .dispatch("signin/doSignin", memberInfo)
         .then(() => {
+          // 로그인 성공 시 닉네임 받아와서 nickname 모듈에 저장
+          store
+            .dispatch("nickname/reqNickname", this.email)
+            .catch((err2) => console.log(err2));
           this.$router.push("/");
         })
         .catch((err) => {

@@ -74,6 +74,7 @@ export default {
       store
         .dispatch("newactivity/createNewActivity", newactivityInfo)
         .then(() => {
+          // 액티비티 작성 완료 후 작성한 액티비티 화면으로
           newAid = computed(() => store.getters["newactivity/getNewAid"]);
           toURI = "/activity/" + newAid.toString();
           this.$router.push(toURI);

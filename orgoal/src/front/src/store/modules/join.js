@@ -1,34 +1,34 @@
 import axios from "axios";
 
-export const signup = {
+export const join = {
   namespaced: true,
   state: {},
   getters: {},
   mutations: {},
   actions: {
-    // 회원가입
-    async doSignup(signupInfo) {
+    // 액티비티 신청
+    async joinActivity(activityID, joinInfo) {
       let result = false;
       let resultErr = null;
       try {
-        //     let signupInfo = {
-        //     id: this.memberId,
-        //     password: this.memberPassword,
-        //     nickname: this.nickname,
-        //     question: this.passwordQuestion,
-        //     answer: this.passwordAnswer,
-        //   };
+        // joinInfo = {
+        //      token: this.token,
+        //      answer: this.answer,
+        // }
         const hostname = window.location.hostname;
-        const URI = hostname + "/signup";
-        let res = await axios.post(URI, signupInfo);
+        const URI = hostname + "/activity/" + activityID.toString();
+        let res = await axios.post(URI, joinInfo);
         if (res.status == 201) {
-          console.log("회원가입 성공");
+          console.log("액티비티 신청 완료");
           result = true;
         } else {
-          console.log("회원가입 실패");
-          let err = new Error("Request failed with status code 409!");
+          console.log("액티비티 신청 실패");
+          let err = new Error("Request failed!");
           err.response = {
-            data: { success: false, errormessage: "회원가입에 실패했습니다." },
+            data: {
+              success: false,
+              errormessage: "액티비티 신청에 실패했습니다.",
+            },
           };
           resultErr = err;
         }

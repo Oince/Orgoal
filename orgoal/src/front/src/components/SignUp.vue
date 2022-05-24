@@ -132,7 +132,6 @@ export default {
         this.$refs.passwordAnswerInput.focus();
         return;
       }
-      console.log(this.passwordQuestion);
       let signupInfo = {
         email: this.email,
         password: this.memberPassword,
@@ -143,7 +142,7 @@ export default {
       store
         .dispatch("signup/doSignup", signupInfo)
         .then(() => {
-          this.$router.push("/login");
+          this.$router.push("/signin");
         })
         .catch((err) => {
           this.errorMessage = err.response.data.errormessage;
