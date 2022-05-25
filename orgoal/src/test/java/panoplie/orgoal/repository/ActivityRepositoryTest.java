@@ -58,4 +58,14 @@ class ActivityRepositoryTest {
             });
         }
     }
+
+    @Test
+    @DisplayName("전체 데이터 최신순 정렬")
+    void findAll() {
+        List<Activity> list = activityRepository.findAll();
+        for (Activity activity : list) {
+            System.out.println(activity);
+        }
+        System.out.println(new Date());
+    }
 }

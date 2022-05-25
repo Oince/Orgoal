@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import panoplie.orgoal.domain.Member;
-import panoplie.orgoal.repository.MemberRepository;
 import panoplie.orgoal.security.SHA256;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -22,14 +20,6 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     /* 더미 데이터 (21, "hky0105@naver.com", "asdfzxcv123", "Oince", "PETNAME", "다온") */
-
-    @Test
-    @DisplayName("전제 회원 가져오기")
-    void getMember() {
-        List<Member> members = memberRepository.getMembers();
-
-        assertEquals(21, members.get(0).getMid());
-    }
 
     @Test
     @DisplayName("회원 찾기")

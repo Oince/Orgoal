@@ -12,10 +12,6 @@ import java.util.List;
 //DB의 member 테이블에 접근
 public interface MemberRepository {
 
-    //전체 멤버 가져오기
-    @Select("Select * from member")
-    List<Member> getMembers();
-
     //회원 가입시 member 테이블에 삽입
     @Insert("Insert into member values(member_seq.nextval,#{member.email},#{member.password},#{member.nickname},#{member.question},#{member.answer})")
     void save(@Param("member") Member member);

@@ -63,13 +63,13 @@ Create table activity (
 
 ### 개요
 - /
-  - /signup 완료
-  - /signin 완료
+  - **/signup 완료**
+  - **/signin 완료**
   - /search
   - /mypage/info
   - /mypage/activity
-  - /activity
-    - /activity/{id}
+  - **/activity 완료**
+    - **/activity/{id} 완료**
     - /activity/{id}/list
     - /activity/{id}/?submit
   - /notification/info
@@ -107,6 +107,15 @@ Create table activity (
   - date    액티티비 마지막 수정 날짜
   - writer  작성자 id
 
+### GET /nickname
+
+이메일에 해당하는 유저의 닉네임을 가져오는 API  
+
+- req 
+  - email
+- res
+  - nickname
+
 
 ### GET /mypage/info
 mypage 정보 API
@@ -133,18 +142,20 @@ mypage 액티비티 정보 API
 - res
   - aid     액티비티 id
   - 성공시 201 코드
-  - 실패시 미정
+  - 실패시 401 또는 404
 
 ### GET /activity/{id}
 액티비티 관련 정보를 가져오는 API
 - req
   - 로그인 토큰
 - res
+  - aid 액티비티 아이디
   - title 액티비티 제목
   - content 액티비티 본문
   - email   작성자 이메일 id
   - nickname 작성자 닉네임
   - lastModification 작성 날짜
+  
 
 
 이 이후의 API는 관련 DB 설계 전이기 때문에 변경 가능성이 있음

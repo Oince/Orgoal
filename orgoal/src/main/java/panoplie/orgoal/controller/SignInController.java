@@ -1,6 +1,7 @@
 package panoplie.orgoal.controller;
 
 import org.apache.ibatis.javassist.NotFoundException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import panoplie.orgoal.domain.LoginForm;
-import panoplie.orgoal.security.Token;
 import panoplie.orgoal.service.MemberService;
 
 import java.security.NoSuchAlgorithmException;
@@ -26,15 +26,14 @@ public class SignInController {
     }
 
     @PostMapping
-    public ResponseEntity<Token> login(@RequestBody LoginForm loginForm) {
+    public ResponseEntity login(@RequestBody LoginForm loginForm) {
 
         String token;
 
         try {
             //로그인 메소드 호출
             token = memberService.signIn(loginForm);
-        }
-        catch (NotFoundException e) {
+        } catch (NotFoundException | IllegalStateException e) {
             //로그인 실패시 401 코드 반환
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -43,10 +42,11 @@ public class SignInController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        Token createdToken = new Token(token);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("token", token);
 
         //정상적으로 성공시 200 코드 반환
-        return new ResponseEntity<>(createdToken, HttpStatus.OK);
+        return new ResponseEntity<>(jsonObject, HttpStatus.OK);
 
 
     }

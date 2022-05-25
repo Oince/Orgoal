@@ -48,7 +48,7 @@ public class MemberService {
         return byEmail != null;
     }
 
-    public String signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException {
+    public String signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException, IllegalStateException {
 
         //email로 찾아서 member 가져옴
         Member member = memberRepository.findByEmail(loginForm.getEmail());
@@ -65,7 +65,7 @@ public class MemberService {
         if (member.getPassword().equals(loginForm.getPassword())) {
             return JwtTokenProvider.createToken(member.getEmail());
         } else {
-            throw new NotFoundException("Password not match");
+            throw new IllegalStateException("Password not match");
         }
     }
 

@@ -10,9 +10,12 @@ public class Activity {
     private int mid;
     private Date lastModification;
 
-    public Activity() {
-    }
+    public Activity() {}
 
+    public Activity(ActivityForm activityForm) {
+        this.title = activityForm.getTitle();
+        this.content = activityForm.getContent();
+    }
     public Activity(String title, String content, char state, int mid, Date lastModification) {
         this.title = title;
         this.content = content;
