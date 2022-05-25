@@ -8,7 +8,7 @@
         <div class="navbar-menu">
           <div class="navbar-left">
             <div class="search">
-              <input v-model="searchText" />
+              <input v-model="searchText" @keyup.enter="onClickSearchButton" />
               <button @click="onClickSearchButton">검색</button>
             </div>
           </div>
@@ -20,9 +20,9 @@
             </div>
             <div v-if="isSignedin">
               <span>{{ username }}님 </span>
-              <router-link to="/mypage"
-                ><button>마이페이지</button></router-link
-              >
+              <router-link to="/mypage">
+                <button class="mypage">MY</button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -81,5 +81,15 @@ export default {
   width: 1080px;
   display: flex;
   justify-content: space-between;
+}
+.mypage {
+  color: gray;
+  background-color: white;
+  font-weight: 900;
+  font-size: 14pt;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
 }
 </style>
