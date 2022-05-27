@@ -3,7 +3,7 @@ import axios from "axios";
 export const signin = {
   namespaced: true,
   state: () => ({
-    token: "",
+    token: "123",
   }),
   getters: {
     hasToken(state) {
@@ -27,9 +27,7 @@ export const signin = {
       let resultErr = null;
       try {
         // memberInfo = { email: memberId, password: memberPassword }
-        const hostname = window.location.hostname;
-        const URI = hostname + "/signin";
-        let res = await axios.post(URI, memberInfo);
+        let res = await axios.post("/signin", memberInfo);
         /* 응답 객체 res
           {
             "data": {

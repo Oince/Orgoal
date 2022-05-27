@@ -17,14 +17,12 @@ export const nickname = {
   },
   actions: {
     reqNickname({ commit }, email) {
-      const hostname = window.location.hostname;
-      const URI = hostname + "/nickname";
       let config = {
         headers: {
           email: email,
         },
       };
-      axios.get(URI, config).then((response) => {
+      axios.get("/nickname", config).then((response) => {
         commit("setNickname", response.data.nickname);
       });
     },

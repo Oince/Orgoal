@@ -15,9 +15,10 @@ export const join = {
         //      token: this.token,
         //      answer: this.answer,
         // }
-        const hostname = window.location.hostname;
-        const URI = hostname + "/activity/" + activityID.toString();
-        let res = await axios.post(URI, joinInfo);
+        let res = await axios.post(
+          "/activity/" + activityID.toString(),
+          joinInfo
+        );
         if (res.status == 201) {
           console.log("액티비티 신청 완료");
           result = true;

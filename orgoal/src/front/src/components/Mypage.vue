@@ -11,7 +11,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import myactivity from "./Myactivity.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "MyPage",
@@ -30,25 +30,7 @@ export default {
       nickname,
     };
   },
-  mounted() {
-    const hostname = window.location.hostname;
-    const URI = hostname + "/mypage/activity";
-    let config = {
-      headers: {
-        token: this.token,
-      },
-    };
-    axios.get(URI, config).then((response) => {
-      console.log("Loaded Mypage Activity");
-      response.data
-        .forEach((myActivity) => {
-          this.myActivities.push(myActivity);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  },
+  mounted() {},
 };
 </script>
 
