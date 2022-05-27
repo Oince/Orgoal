@@ -7,7 +7,7 @@ export const join = {
   mutations: {},
   actions: {
     // 액티비티 신청
-    async joinActivity(activityID, joinInfo) {
+    async joinActivity(activityID, joinInfo, config) {
       let result = false;
       let resultErr = null;
       try {
@@ -17,7 +17,8 @@ export const join = {
         // }
         let res = await axios.post(
           "/activity/" + activityID.toString(),
-          joinInfo
+          joinInfo,
+          config
         );
         if (res.status == 201) {
           console.log("액티비티 신청 완료");

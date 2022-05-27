@@ -67,12 +67,16 @@ export default {
         return;
       }
       let newactivityInfo = {
-        token: this.token,
         title: this.title,
         content: this.content,
       };
+      let config = {
+        headers: {
+          token: this.token,
+        },
+      };
       store
-        .dispatch("newactivity/createNewActivity", newactivityInfo)
+        .dispatch("newactivity/createNewActivity", newactivityInfo, config)
         .then(() => {
           // 액티비티 작성 완료 후 작성한 액티비티 화면으로
           newAid = computed(() => store.getters["newactivity/getNewAid"]);

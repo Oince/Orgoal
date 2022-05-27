@@ -16,7 +16,7 @@ export const newactivity = {
     },
   },
   actions: {
-    async createNewActivity({ commit }, newactivityInfo) {
+    async createNewActivity({ commit }, newactivityInfo, config) {
       let result = false;
       let resultErr = null;
       try {
@@ -25,8 +25,7 @@ export const newactivity = {
         //   title: this.title,
         //   content: this.content,
         // }
-
-        let res = await axios.post("/activity", newactivityInfo);
+        let res = await axios.post("/activity", newactivityInfo, config);
         /* 응답 객체 res
           {
             "data": {
