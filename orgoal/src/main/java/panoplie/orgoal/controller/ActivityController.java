@@ -4,6 +4,8 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +14,21 @@ import panoplie.orgoal.domain.ActivityForm;
 import panoplie.orgoal.security.JwtTokenProvider;
 import panoplie.orgoal.security.UserClaim;
 import panoplie.orgoal.service.ActivityService;
+import panoplie.orgoal.service.ParticipateService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
 
     private final ActivityService activityService;
+    private final ParticipateService participateService;
 
-    public ActivityController(ActivityService activityService) {
+    @Autowired
+    public ActivityController(ActivityService activityService, ParticipateService participateService) {
         this.activityService = activityService;
+        this.participateService = participateService;
     }
 
     //액티비티를 생성함, 액티비티와 토큰을 받음
@@ -37,12 +42,10 @@ public class ActivityController {
             aid = activityService.createActivity(activityForm, email);
         }
         catch (MalformedJwtException | SignatureException e) {
-            Message message = new Message(HttpStatus.UNAUTHORIZED.value(), "Token validation failed", new Date());
-            return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Token validation failed", HttpStatus.UNAUTHORIZED);
         }
         catch (NotFoundException e) {
-            Message message = new Message(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Date());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
         JSONObject jsonObject = new JSONObject();
@@ -55,19 +58,34 @@ public class ActivityController {
     //액티비티에 대한 정보를 제공함, 해당 액티비티 aid와 토큰을 받음
     @GetMapping("/{aid}")
     public ResponseEntity<Activity>  getActivity(@PathVariable int aid, HttpServletRequest request) {
+
         Activity activity = activityService.getActivity(aid);
         if (activity == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(activity, HttpStatus.OK);
         }
+
     }
 
-//    //액티비티에 신청 요청을 함, 해당 액티비티 aid와 질문 답변 내용, 토큰을 받음
-//    @PostMapping("/{aid}")
-//    public ResponseEntity<> apply(@PathVariable String aid, @RequestBody Member member, HttpServletRequest request) {
-//
-//    }
+    //액티비티에 신청 요청을 함, 해당 액티비티 aid와 질문 답변 내용, 토큰을 받음
+    @PostMapping("/{aid}")
+    public ResponseEntity<String> apply(@PathVariable int aid, @RequestBody String answer, HttpServletRequest request) {
+
+        UserClaim userClaim = JwtTokenProvider.getUserClaim(request.getHeader("token"));
+        String email = userClaim.getEmail();
+
+        try {
+            participateService.application(aid, email, answer);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (DuplicateKeyException e) {
+            return new ResponseEntity<>("Duplicated application", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
 //
 //    //해당 액티비티에 신청자의 목록을 제공함, 해당 액티비티 aid와 토큰을 받음
 //    @GetMapping("/{aid}/list")

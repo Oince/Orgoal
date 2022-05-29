@@ -106,7 +106,7 @@ class MemberServiceTest {
         memberService.signUp(member1);
 
         String encrypt = SHA256.encrypt(member1.getPassword());
-        Member member2 = memberService.findByEmail(member1.getEmail());
+        Member member2 = memberService.getMember(member1.getEmail());
 
         assertEquals(encrypt, member2.getPassword());
     }

@@ -2,6 +2,7 @@ package panoplie.orgoal.controller;
 
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import panoplie.orgoal.security.UserClaim;
 import panoplie.orgoal.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/mypage")
@@ -28,7 +28,7 @@ public class MypageController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<Member> getUserMember(HttpServletRequest request) {
+    public ResponseEntity getUserMember(HttpServletRequest request) {
 
         String email;
 
@@ -40,12 +40,15 @@ public class MypageController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        Member member = memberService.findByEmail(email);
+        Member member = memberService.getMember(email);
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(member, HttpStatus.OK);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nickname", member.getNickname());
+
+        return new ResponseEntity<>(jsonObject, HttpStatus.OK);
 
     }
 }

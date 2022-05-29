@@ -69,7 +69,7 @@ public class MemberService {
         }
     }
 
-    public Member findByEmail(String email) {
+    public Member getMember(String email) {
         return memberRepository.findByEmail(email);
     }
 
