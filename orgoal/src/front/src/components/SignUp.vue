@@ -53,11 +53,11 @@
           v-model.trim="passwordQuestion"
         /> -->
         <select @change="qChange($event)">
-          <option value="1">가장 존경하는 인물은 누구입니까?</option>
-          <option value="2">처음으로 기른 애완동물의 이름은 무엇입니까?</option>
-          <option value="3">
-            처음으로 가본 해외 도시의 이름은 무엇입니까?
+          <option value="1">처음으로 기른 애완동물의 이름은 무엇입니까?</option>
+          <option value="2">
+            어릴적 다녔었던 초등학교의 이름은 무엇입니까?
           </option>
+          <option value="3">가장 좋아하는 색은 무엇입니까?</option>
         </select>
       </div>
       <div>
@@ -93,20 +93,20 @@ export default {
     let memberPassword = "";
     let passwordConfirm = "";
     let nickname = "";
-    let passwordQuestion = "가장 존경하는 인물은 누구입니까?";
+    let passwordQuestion = "PETNAME";
     let passwordAnswer = "";
     let errorMessage = "";
 
     // methods
     const qChange = function (event) {
       if (event.target.value == 1) {
-        this.passwordQuestion = "가장 존경하는 인물은 누구입니까?";
+        this.passwordQuestion = "PETNAME";
         return;
       } else if (event.target.value == 2) {
-        this.passwordQuestion = "처음으로 기른 애완동물의 이름은 무엇입니까?";
+        this.passwordQuestion = "ELEMENTARYSCHOOL";
         return;
       } else if (event.target.value == 3) {
-        this.passwordQuestion = "처음으로 가본 해외 도시의 이름은 무엇입니까?";
+        this.passwordQuestion = "FAVORITECOLOR";
         return;
       }
     };

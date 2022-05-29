@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ActivityList",
   setup: function () {
@@ -42,6 +43,7 @@ export default {
     var activityHostEmail = "admin@orgoal.com";
     var activityHostNickname = "김오르골";
     var activityLastModificationDate = "2022-05-18";
+
     // methods
 
     return {
@@ -57,11 +59,8 @@ export default {
     this.activityID = this.$route.params.id;
   },
   mounted() {
-    const axios = require("axios").default;
-    const hostName = window.location.hostname; // 호스트 주소 바뀌어도 대응 가능
-    const URI = hostName + "/activity/" + this.activityID; // API 이거 맞나? 확인 필요
     axios
-      .get(URI)
+      .get("/activity/" + this.activityID)
       .then((response) => {
         console.log("Loaded Activity Detail" + response); // for Debug
         this.activityTitle = response.data.title;

@@ -23,7 +23,7 @@ const routes = [
   {
     path: "/mypage",
     component: () => import("./components/Mypage.vue"),
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: "/newActivity",
@@ -41,7 +41,7 @@ const routes = [
     path: "/search",
     name: "search",
     component: () => import("./components/ActivityList.vue"),
-  }
+  },
 ];
 
 const router = VueRouter.createRouter({

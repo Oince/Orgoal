@@ -1,7 +1,10 @@
 <template>
   <div class="mypage">
-    <h1>마이페이지</h1>
-    <h2>{{ nickname }}</h2>
+    <div class="mypage-head">My Page</div>
+    <div class="mypage-body">
+      <span class="nickname">{{ nickname }}</span
+      >님, 반갑습니다!
+    </div>
   </div>
   <hr />
   <myactivity />
@@ -30,8 +33,30 @@ export default {
       nickname,
     };
   },
-  mounted() {},
 };
 </script>
 
-<style></style>
+<style scoped>
+.mypage {
+  width: 600px;
+  margin: auto;
+}
+.mypage-head {
+  width: 600px;
+  margin: 20px 0px 20px 0px;
+  text-align: left;
+  font-size: 40px;
+  font-weight: bolder;
+}
+.mypage-body {
+  width: 600px;
+  margin: 20px 0px 20px 0px;
+  text-align: left;
+  font-size: 25px;
+}
+.nickname {
+  margin-right: 5px;
+  font-weight: bold;
+  color: blue;
+}
+</style>

@@ -1,9 +1,9 @@
 import axios from "axios";
-
+// 로그인 요청 및 토큰 관리 모듈
 export const signin = {
   namespaced: true,
   state: () => ({
-    token: "123",
+    token: "",
   }),
   getters: {
     hasToken(state) {
