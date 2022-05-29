@@ -33,6 +33,15 @@ const routes = [
     path: "/activityList",
     component: () => import("./components/ActivityList.vue"),
   },
+  {
+    path: "/activity/:id",
+    component: () => import("./components/ActivityDetail.vue"),
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: () => import("./components/ActivityList.vue"),
+  }
 ];
 
 const router = VueRouter.createRouter({

@@ -9,8 +9,8 @@
         <div class="navbar-menu">
           <div class="navbar-left">
             <div class="search">
-              <input type="text" />
-              <button>검색</button>
+              <input v-model="searchText" @keyup.enter="onClickSearchButton" />
+              <button @click="onClickSearchButton()">검색</button>
             </div>
           </div>
           <div class="navbar-right">
@@ -45,6 +45,8 @@ export default {
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
     const nickname = computed(() => store.getters["nickname/getNickname"]);
+    let searchText = "";
+
     //methods
     const doLogout = function () {
       store
@@ -56,7 +58,19 @@ export default {
           console.log(err);
         });
     };
-    return { isSignedin, nickname, doLogout };
+
+    //methods
+    let onClickSearchButton = function () {
+      if (this.searchText == "") {
+        alert("검색어를 입력하세요");
+        return;
+      }
+      // TODO : 쿼리문 외에 태그를 사용한 검색도 구현하기
+      this.$router.push({ name: "search", query: { query: this.searchText } });
+      console.log(this.searchText);
+    };
+
+    return { isSignedin, nickname, searchText, doLogout, onClickSearchButton };
   },
 };
 </script>
@@ -71,10 +85,26 @@ export default {
   width: 1280px;
   margin: 0 auto;
   justify-content: space-between;
+  padding: 1em 0;
+}
+.logo {
+  flex: 0 0 200px;
+  text-align: left;
+  font-size: 24pt;
 }
 .navbar-menu {
   width: 1080px;
   display: flex;
   justify-content: space-between;
+}
+.mypage {
+  color: gray;
+  background-color: white;
+  font-weight: 900;
+  font-size: 14pt;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
 }
 </style>
