@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ActivityList",
   setup: function () {
@@ -51,9 +52,7 @@ export default {
     return { activities, getURLbyActivityID };
   },
   mounted() {
-    const axios = require("axios").default;
-    const hostName = window.location.hostname; // 호스트 주소 바뀌어도 대응 가능
-    const URI = hostName + '/search?tag="' + '"&query=' + this.$router.query;
+    const URI = '/search?tag="' + '"&query=' + this.$router.query;
     axios
       .get(URI)
       .then((response) => {
