@@ -81,9 +81,6 @@ export default {
           newAid = computed(() => store.getters["newactivity/getNewAid"]);
           this.$router.push("/activity/" + newAid.toString());
         })
-        .catch((err) => {
-          this.errorMessage = err.response.data.errormessage;
-        });
     };
 
     const doCancel = function () {
