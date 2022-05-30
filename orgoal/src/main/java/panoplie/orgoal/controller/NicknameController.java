@@ -24,7 +24,7 @@ public class NicknameController {
 
     @GetMapping
     public ResponseEntity nickname(@RequestBody Member member) {
-        Member byEmail = memberService.findByEmail(member.getEmail());
+        Member byEmail = memberService.getMember(member.getEmail());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("nickname", byEmail.getNickname());
         return new ResponseEntity(jsonObject, HttpStatus.OK);
