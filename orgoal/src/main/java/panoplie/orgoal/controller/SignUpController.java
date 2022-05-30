@@ -43,7 +43,6 @@ public class SignUpController {
             return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
         //정상적으로 회원 가입이 마무리되면 201 코드 리턴
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

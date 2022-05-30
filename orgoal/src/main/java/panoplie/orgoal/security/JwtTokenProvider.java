@@ -12,11 +12,12 @@ import java.util.Date;
 public class JwtTokenProvider {
     private final static String secretKey = "orgoalsecretkey";
 
-    public static String createToken(String email) {
+    public static String createToken(String email, int mid) {
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuedAt(new Date())
                 .claim("email", email)
+                .claim("mid", mid)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
@@ -28,15 +29,11 @@ public class JwtTokenProvider {
                 .getBody();
     }
 
-    public static UserClaim getUserClaim(String authorizationHeader) {
+    public static UserClaim getUserClaim(String token) {
 
-        String token = extractToken(authorizationHeader);
         Claims claims = parsingToken(token);
 
         return new UserClaim(claims);
     }
 
-    private static String extractToken(String authorizationHeader) {
-        return authorizationHeader;
-    }
 }

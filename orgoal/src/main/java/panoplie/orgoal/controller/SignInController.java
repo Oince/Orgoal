@@ -48,6 +48,5 @@ public class SignInController {
         //정상적으로 성공시 200 코드 반환
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);
 
-
     }
 }

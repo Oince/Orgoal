@@ -63,13 +63,13 @@ public class MemberService {
 
         //같으면 member 리턴, 다르면 예외 던짐
         if (member.getPassword().equals(loginForm.getPassword())) {
-            return JwtTokenProvider.createToken(member.getEmail());
+            return JwtTokenProvider.createToken(member.getEmail(), member.getMid());
         } else {
             throw new IllegalStateException("Password not match");
         }
     }
 
-    public Member findByEmail(String email) {
+    public Member getMember(String email) {
         return memberRepository.findByEmail(email);
     }
 

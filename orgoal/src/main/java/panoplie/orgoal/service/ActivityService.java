@@ -25,7 +25,7 @@ public class ActivityService {
 
     public int createActivity(ActivityForm activityForm, String email) throws NotFoundException {
 
-        Member member = memberService.findByEmail(email);
+        Member member = memberService.getMember(email);
         if (member == null) {
             throw new NotFoundException("Not exist member");
         }
@@ -35,6 +35,8 @@ public class ActivityService {
         activity.setState('R');
         activity.setLastModification(new Date());
         activityRepository.save(activity);
+
+
         return activity.getAid();
     }
 

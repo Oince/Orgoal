@@ -27,6 +27,7 @@ public class SearchController {
 
         if (list.isEmpty()) {
             list = activityService.getActivityList();
+            return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
         }
 
         return new ResponseEntity<>(list, HttpStatus.OK);
