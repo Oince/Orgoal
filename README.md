@@ -1,8 +1,11 @@
 # Orgoal 
-아무것도 없는 초기 상태입니다.  
+**수정사항**
+
+- 토큰에 mid 값 추가
+- /search 검색 실패시 202코드
+
 프론트 작업은 orgoal/src/front에서 해주시고  
 빌드 결과물은 orgoal/src/main/recources/static 에 출력해주세요  
-나도 잘 모르니까 자세한건 검색 ㄱㄱ  
 
 프론트 페이지 빌드 오류 시 해당 디렉토리에서  
 ```
@@ -66,7 +69,7 @@ Create table activity (
   - **/signup 완료**
   - **/signin 완료**
   - **/search 완료**
-  - /nickname
+  - **/nickname 완료**
   - **/mypage/info 완료**
   - /mypage/activity
   - **/activity 완료**
@@ -98,7 +101,7 @@ Create table activity (
   - 실패시 401
   
 
-### GET /search?tag=""&query=""
+### GET /search?query=""
 액티비티 검색 API  
 쿼리 스트링 tag, query 사용  
 query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로 보내줌
@@ -112,6 +115,7 @@ query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로
   - mid 작성자id
   - lastModification    액티티비 마지막 수정 날짜
   - 성공시 200
+  - 검색 결과가 없으면 전체 리스트 최신순으로 보냄 코드 202
 
 ### GET /nickname
 

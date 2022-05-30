@@ -16,10 +16,11 @@ class JwtTokenProviderTest {
     void createToken() {
         String email = "hky0105@naver.com";
 
-        String token = JwtTokenProvider.createToken(email);
+        String token = JwtTokenProvider.createToken(email, 21);
         UserClaim userClaim = JwtTokenProvider.getUserClaim(token);
 
         assertEquals(email, userClaim.getEmail());
+        assertEquals(21, userClaim.getMid());
 
     }
 
