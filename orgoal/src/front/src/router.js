@@ -23,7 +23,7 @@ const routes = [
   {
     path: "/mypage",
     component: () => import("./components/Mypage.vue"),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/newActivity",

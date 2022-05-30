@@ -4,7 +4,7 @@
       <div class="newactivityTop">
         <h2 class="title">Create Activity</h2>
         <p class="buttons">
-          <button @click.prevent="createActivity()" class="button blue">
+          <button @click.prevent="createNewActivity()" class="button blue">
             등록
           </button>
           <button @click.prevent="doCancel()" class="button">취소</button>
@@ -81,9 +81,6 @@ export default {
           newAid = computed(() => store.getters["newactivity/getNewAid"]);
           this.$router.push("/activity/" + newAid.toString());
         })
-        .catch((err) => {
-          this.errorMessage = err.response.data.errormessage;
-        });
     };
 
     const doCancel = function () {
