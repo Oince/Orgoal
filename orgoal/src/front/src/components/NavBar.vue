@@ -8,8 +8,14 @@
         <div class="navbar-menu">
           <div class="navbar-left">
             <div class="search">
-              <input type="text" />
-              <button>검색</button>
+              <input
+                class="search-input"
+                v-model="searchText"
+                @keyup.enter="onClickSearchButton"
+              />
+              <button class="search-button" @click="onClickSearchButton">
+                검색
+              </button>
             </div>
           </div>
           <div class="navbar-right">
@@ -20,9 +26,22 @@
             </div>
             <div v-if="isSignedin">
               <span>{{ username }}님 </span>
-              <router-link to="/mypage"
-                ><button>마이페이지</button></router-link
-              >
+              <router-link to="/mypage">
+                <button class="mypage">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-person"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+                    />
+                  </svg>
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -41,14 +60,22 @@ export default {
   setup: function () {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
-    const isSignedin = computed(() => store.getters["signin/hasToken"]);
+    let isSignedin = computed(() => store.getters["signin/hasToken"]);
+    isSignedin = true;
+    let searchText = "";
 
     //methods
-    // const isSignedin = function () {
-    //   return computed(() => store.getters["signin/hasToken"]);
-    // };
+    let onClickSearchButton = function () {
+      if (this.searchText == "") {
+        alert("검색어를 입력하세요");
+        return;
+      }
+      // TODO : 쿼리문 외에 태그를 사용한 검색도 구현하기
+      this.$router.push({ name: "search", query: { query: this.searchText } });
+      console.log(this.searchText);
+    };
 
-    return { isSignedin };
+    return { isSignedin, searchText, onClickSearchButton };
   },
 };
 </script>
@@ -66,13 +93,26 @@ export default {
   padding: 1em 0;
 }
 .logo {
-  flex:0 0 200px;
+  flex: 0 0 200px;
   text-align: left;
-  font-size : 24pt;
+  font-size: 24pt;
 }
 .navbar-menu {
   width: 1080px;
   display: flex;
   justify-content: space-between;
+}
+.search {
+  height: 40px;
+}
+.mypage {
+  color: gray;
+  background-color: white;
+  font-weight: 900;
+  font-size: 14pt;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
 }
 </style>
