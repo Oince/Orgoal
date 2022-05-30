@@ -46,7 +46,7 @@
       <div>
         <label for="passwordQuestionInput">비밀번호 분실 시 질문</label>
         <input
-          type="password"
+          type="text"
           id="passwordQuestionInput"
           class="input_text"
           ref="passwordQuestionInput"
@@ -56,7 +56,7 @@
       <div>
         <label for="passwordAnswerInput">답변</label>
         <input
-          type="password"
+          type="text"
           id="passwordAnswerInput"
           class="input_text"
           ref="passwordAnswerInput"
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
 export default {
   name: "SignUp",
   setup: function () {
@@ -86,6 +87,8 @@ export default {
     let passwordQuestion = "";
     let passwordAnswer = "";
     let errorMessage = "";
+
+    const store = useStore();
 
     // methods
     const doSignup = function () {
@@ -116,16 +119,16 @@ export default {
       }
 
       let signupInfo = {
-        id: this.memberId,
+        email: this.memberId,
         password: this.memberPassword,
         nickname: this.nickname,
         question: this.passwordQuestion,
         answer: this.passwordAnswer,
       };
-      this.$store
-        .dispatch("signupStore/doSignup", signupInfo)
+      store
+        .dispatch("signup/doSignup", signupInfo)
         .then(() => {
-          this.$router.push("/login");
+          this.$router.push("/signin");
         })
         .catch((err) => {
           this.errorMessage = err.response.data.errormessage;

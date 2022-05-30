@@ -33,7 +33,8 @@ export const signin = {
       let resultErr = null;
       try {
         // memberInfo = { id: memberId, password: memberPassword }
-        let res = await axios.post("http://localhost:8080/signin", memberInfo);
+        let hostname = window.location.hostname;
+        let res = await axios.post(hostname + "/signin", memberInfo);
         /* 응답 객체 res
           {
             "data": {
@@ -42,10 +43,10 @@ export const signin = {
             }
           }
         */
-        if (res.data.success == true) {
+        if (res.status == 200) {
           console.log("로그인 성공");
-          commit("setMemberId", memberInfo.id);
-          commit("setAccessToken", res.data.accessToken);
+          // commit("setMemberId", memberInfo.id);
+          commit("setAccessToken", res.data.token);
           result = true;
         } else {
           console.log("로그인 실패");
