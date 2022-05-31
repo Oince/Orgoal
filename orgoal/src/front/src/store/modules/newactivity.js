@@ -16,7 +16,13 @@ export const newactivity = {
     },
   },
   actions: {
-    createNewActivity({ commit }, newactivityInfo, config) {
+    createNewActivity({ commit }, newactivityInfo, token) {
+      let config = {
+        headers: {
+          token: token,
+        },
+      };
+      console.log("module " + token);
       axios
         .post("/activity", newactivityInfo, config)
         .then((res) => {
