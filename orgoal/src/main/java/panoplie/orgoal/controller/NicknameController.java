@@ -1,6 +1,7 @@
 package panoplie.orgoal.controller;
 
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,11 @@ public class NicknameController {
     }
 
     @GetMapping
-    public ResponseEntity nickname(@RequestBody Member member) {
-        Member byEmail = memberService.findByEmail(member.getEmail());
+    public ResponseEntity nickname(HttpServletRequest request) {
+        String email = request.getHeader("email");
+        Member member = memberService.getMember(email);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nickname", byEmail.getNickname());
+        jsonObject.put("nickname", member.getNickname());
         return new ResponseEntity(jsonObject, HttpStatus.OK);
     }
 }
