@@ -1,4 +1,7 @@
 import axios from "axios";
+axios.defaults.headers = {
+  email: "",
+};
 // 닉네임을 관리하기 위한 모듈
 export const nickname = {
   namespaced: true,

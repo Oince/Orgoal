@@ -23,7 +23,7 @@
 
 <script>
 import { useStore } from "vuex";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "Join",
@@ -50,15 +50,15 @@ export default {
           token: this.token,
         },
       };
-      store
-        .dispatch("join/joinActivity", this.aid, joinInfo, config)
+      axios
+        .post("/activity/" + activityID.toString(), joinInfo, config)
         .then(() => {
           if (confirm("신청이 완료되었습니다. 마이페이지로 이동하시겠습니까?"))
             this.$router.push("/mypage");
           else this.$router.push("/activity/" + this.aid.toString());
         })
         .catch((err) => {
-          this.errorMessage = err.response.data.errormessage;
+          console.log(err);
         });
     };
 

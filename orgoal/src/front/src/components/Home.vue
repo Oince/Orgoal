@@ -24,7 +24,6 @@ export default {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
-
     return { isSignedin };
   },
 };
