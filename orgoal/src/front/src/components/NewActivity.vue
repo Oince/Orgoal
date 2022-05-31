@@ -69,18 +69,14 @@ export default {
         title: this.title,
         content: this.content,
       };
-      let config = {
-        headers: {
-          token: this.token,
-        },
-      };
+      console.log("component " + token);
       store
-        .dispatch("newactivity/createNewActivity", newactivityInfo, config)
+        .dispatch("newactivity/createNewActivity", newactivityInfo, token)
         .then(() => {
           // 액티비티 작성 완료 후 작성한 액티비티 화면으로
           newAid = computed(() => store.getters["newactivity/getNewAid"]);
           this.$router.push("/activity/" + newAid.toString());
-        })
+        });
     };
 
     const doCancel = function () {
