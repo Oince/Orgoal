@@ -17,14 +17,15 @@ export const newactivity = {
   },
   actions: {
     createNewActivity({ commit }, newactivityInfo, config) {
-      axios.post("/activity", newactivityInfo, config)
-        .then((response) => {
-          console.log("새 액티비티 생성 완료");
-          commit("setNewAid", response.data.newAid);
-          })
+      axios
+        .post("/activity", newactivityInfo, config)
+        .then((res) => {
+          alert("새 액티비티가 생성되었습니다!");
+          commit("setNewAid", res.data.aid);
+        })
         .catch((err) => {
           console.log(err);
         });
-      }
+    },
   },
 };
