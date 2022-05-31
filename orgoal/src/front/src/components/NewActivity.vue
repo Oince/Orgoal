@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import { useStore } from "vuex";
+import axios from "axios";
 
 export default {
   name: "NewActivity",
@@ -51,8 +51,6 @@ export default {
     let title = "";
     let content = "";
     let errorMessage = "";
-
-    let newAid = "";
 
     // methods
     const createNewActivity = function () {
@@ -69,14 +67,27 @@ export default {
         title: this.title,
         content: this.content,
       };
-      console.log("component " + token);
-      store
-        .dispatch("newactivity/createNewActivity", newactivityInfo, token)
-        .then(() => {
-          // 액티비티 작성 완료 후 작성한 액티비티 화면으로
-          newAid = computed(() => store.getters["newactivity/getNewAid"]);
-          this.$router.push("/activity/" + newAid.toString());
+      let config = {
+        headers: {
+          token: this.token,
+        },
+      };
+      axios
+        .post("/activity", newactivityInfo, config)
+        .then((res) => {
+          alert("새 액티비티가 생성되었습니다!");
+          this.$router.push("/activity/" + res.data.aid.toString());
+        })
+        .catch((err) => {
+          console.log(err);
         });
+      // store
+      //   .dispatch("newactivity/createNewActivity", newactivityInfo, token)
+      //   .then(() => {
+      //     // 액티비티 작성 완료 후 작성한 액티비티 화면으로
+      //     newAid = computed(() => store.getters["newactivity/getNewAid"]);
+      //     this.$router.push("/activity/" + newAid.toString());
+      //   });
     };
 
     const doCancel = function () {
@@ -88,7 +99,6 @@ export default {
       title,
       content,
       errorMessage,
-      newAid,
       createNewActivity,
       doCancel,
     };

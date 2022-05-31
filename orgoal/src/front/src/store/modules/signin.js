@@ -9,6 +9,9 @@ export const signin = {
     hasToken(state) {
       return state.token == "" ? false : true;
     },
+    getToken(state) {
+      return state.token;
+    },
   },
   mutations: {
     // token 설정
