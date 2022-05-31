@@ -16,54 +16,16 @@ export const newactivity = {
     },
   },
   actions: {
-    async createNewActivity({ commit }, newactivityInfo, config) {
-      let result = false;
-      let resultErr = null;
-      try {
-        // newactivityInfo = {
-        //   token: this.token,
-        //   title: this.title,
-        //   content: this.content,
-        // }
-        let res = await axios.post("/activity", newactivityInfo, config);
-        /* 응답 객체 res
-          {
-            "data": {
-              "aid": -
-            }
-          }
-        */
-        if (res.status == 201) {
-          console.log("새 액티비티 생성 완료");
-          commit("setNewAid", res.data.newAid);
-          result = true;
-        } else {
-          console.log("새 액티비티 생성 실패");
-          let err = new Error("Request failed with status code 401");
-          err.response = {
-            data: {
-              success: false,
-              errormessage: "액티비티 생성에 실패했습니다.",
-            },
-          };
-          resultErr = err;
-        }
-      } catch (err) {
-        console.log(err);
-        if (!err.response) {
-          err.response = {
-            data: { success: false, errormessage: err.message },
-          };
-        }
-        resultErr = err;
-      }
-      return new Promise((resolve, reject) => {
-        if (result) {
-          resolve();
-        } else {
-          reject(resultErr);
-        }
-      });
+    createNewActivity({ commit }, newactivityInfo, config) {
+      axios
+        .post("/activity", newactivityInfo, config)
+        .then((res) => {
+          alert("새 액티비티가 생성되었습니다!");
+          commit("setNewAid", res.data.aid);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

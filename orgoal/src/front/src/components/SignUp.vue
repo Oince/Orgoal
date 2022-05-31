@@ -82,13 +82,11 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
-
+import axios from "axios";
 export default {
   name: "SignUp",
   setup: function () {
     // data
-    const store = useStore();
     let email = "";
     let memberPassword = "";
     let passwordConfirm = "";
@@ -139,13 +137,14 @@ export default {
         question: this.passwordQuestion,
         answer: this.passwordAnswer,
       };
-      store
-        .dispatch("signup/doSignup", signupInfo)
+      axios
+        .post("/signup", signupInfo)
         .then(() => {
+          alert("가입되었습니다. 환영합니다!");
           this.$router.push("/signin");
         })
         .catch((err) => {
-          this.errorMessage = err.response.data.errormessage;
+          console.log(err);
         });
     };
     const doCancel = function () {
