@@ -20,10 +20,13 @@
         >
       </div>
     </div>
-    <div>이 아래 내용 뭐넣지</div>
+    <div class="home-contents-container">
+      <h1>새로 등록된 액티비티</h1>
+    </div>
   </div>
 </template>
 <script>
+import { onMounted, onUnmounted } from "vue";
 export default {
   name: "HomePage",
   setup: function () {
@@ -33,21 +36,29 @@ export default {
       "https://t1.daumcdn.net/cfile/tistory/2133004052CC14491C",
       "http://image.newsis.com/2021/05/10/NISI20210510_0000743111_web.jpg",
     ];
+    var interval = null;
     // methods
+    onMounted(() => {
+      console.log("mounted, (interval==null):" + (interval == null));
+      setTimeout(() => {
+        document.querySelectorAll(".slider-radio")[0].checked = true;
+      }, 0);
+      interval = setInterval(() => {
+        let i = 0;
+        let slides = document.querySelectorAll(".slider-radio");
+        for (var j = 0; j < slides.length; j++)
+          if (slides[j].checked == true) i = j;
+        i = (i + 1) % slickSlide.length;
+        document.querySelectorAll(".slider-radio")[i].checked = true;
+      }, 5000);
+    });
 
-    // logics
-    setTimeout(() => {
-      document.querySelectorAll(".slider-radio")[0].checked = true;
-    }, 0);
-    setInterval(() => {
-      let i = 0;
-      let slides = document.querySelectorAll(".slider-radio");
-      for (var j = 0; j < slides.length; j++)
-        if (slides[j].checked == true) i = j;
-      i = (i + 1) % slickSlide.length;
-      document.querySelectorAll(".slider-radio")[i].checked = true;
-    }, 5000);
-    return { slickSlide };
+    onUnmounted(() => {
+      console.log("unMounted, (interval==null):" + (interval == null));
+      clearInterval(interval);
+    });
+
+    return { slickSlide, interval };
   },
 };
 </script>

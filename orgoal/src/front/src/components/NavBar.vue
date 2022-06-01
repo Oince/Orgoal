@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -77,20 +77,27 @@ export default {
       console.log(this.searchText);
     };
 
-    return { isSignedin, searchText, hasNewAlarm, onClickSearchButton };
-  },
-  mounted() {
-    const axios = require("axios").default;
-    const URI = "/notification";
-    axios
-      .get(URI, this.store.signin.memberID)
-      .then((response) => {
-        console.log("get if there is new events"); // for Debug
-        this.hasNewAlarm = response.hasNewEvent;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    onMounted(() => {
+      const axios = require("axios").default;
+      const URI = "/notification";
+      axios
+        .get(URI, store.state.signin.memberId)
+        .then((response) => {
+          console.log("get if there is new events"); // for Debug
+          this.hasNewAlarm = response.hasNewEvent;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      console.log("navbar");
+    });
+
+    return {
+      isSignedin,
+      searchText,
+      hasNewAlarm,
+      onClickSearchButton,
+    };
   },
 };
 </script>
