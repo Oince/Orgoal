@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "ActivityList",
   setup: function () {
@@ -48,23 +50,26 @@ export default {
       return "/activity/" + id.toString();
     }
 
+    // lifecycle hooks
+    onMounted(() => {
+      const axios = require("axios").default;
+      const route = useRoute();
+      let query = route.query.query;
+      console.log(query);
+      if (query === undefined) query = "";
+      const URI = "/search?" + "query=" + query;
+      axios
+        .get(URI)
+        .then((response) => {
+          console.log("Loaded Activity List"); // for Debug
+          response.forEach((activity) => this.activities.push(activity));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
     return { activities, getURLbyActivityID };
   },
-  mounted() {
-    const axios = require("axios").default;
-    const hostName = window.location.hostname; // 호스트 주소 바뀌어도 대응 가능
-    const URI = hostName + '/search?tag="' + '"&query=' + this.$router.query;
-    axios
-      .get(URI)
-      .then((response) => {
-        console.log("Loaded Activity List"); // for Debug
-        response.forEach((activity) => this.activities.push(activity));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
-  updated() {},
 };
 </script>
 

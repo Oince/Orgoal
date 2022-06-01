@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { onCreated, onMounted } from "vue";
 export default {
   name: "ActivityList",
   setup: function () {
@@ -44,6 +45,35 @@ export default {
     var activityLastModificationDate = "2022-05-18";
     // methods
 
+    // lifecycle hook
+    onCreated(() => {
+      this.activityID = this.$route.params.id;
+    });
+
+    onMounted(() => {
+      const axios = require("axios").default;
+      const URI = "/activity/" + this.activityID; // API 이거 맞나? 확인 필요
+      axios
+        .get(URI)
+        .then((response) => {
+          console.log("Loaded Activity Detail" + response); // for Debug
+          this.activityTitle = response.data.title;
+          var activityContent = response.data.content;
+          this.activityContents = activityContent.split;
+          activityContent.forEach((element) => {
+            element.replaceAll("\n", "");
+          });
+          this.activityHostEmail = response.data.email;
+          this.activityHostNickname = response.data.nickname;
+          this.activityLastModificationDate = response.data.lastModification;
+          // TODO : 액티비티 정보 제대로 화면에 뿌려주는지 확인 필요
+        })
+        .catch((error) => {
+          console.log(error);
+          this.activityTitle = "에러"; // 디버깅용
+        });
+    });
+
     return {
       activityID,
       activityTitle,
@@ -53,34 +83,6 @@ export default {
       activityLastModificationDate,
     };
   },
-  created() {
-    this.activityID = this.$route.params.id;
-  },
-  mounted() {
-    const axios = require("axios").default;
-    const hostName = window.location.hostname; // 호스트 주소 바뀌어도 대응 가능
-    const URI = hostName + "/activity/" + this.activityID; // API 이거 맞나? 확인 필요
-    axios
-      .get(URI)
-      .then((response) => {
-        console.log("Loaded Activity Detail" + response); // for Debug
-        this.activityTitle = response.data.title;
-        var activityContent = response.data.content;
-        this.activityContents = activityContent.split;
-        activityContent.forEach((element) => {
-          element.replaceAll("\n", "");
-        });
-        this.activityHostEmail = response.data.email;
-        this.activityHostNickname = response.data.nickname;
-        this.activityLastModificationDate = response.data.lastModification;
-        // TODO : 액티비티 정보 제대로 화면에 뿌려주는지 확인 필요
-      })
-      .catch((error) => {
-        console.log(error);
-        this.activityTitle = "에러"; // 디버깅용
-      });
-  },
-  updated() {},
 };
 </script>
 
