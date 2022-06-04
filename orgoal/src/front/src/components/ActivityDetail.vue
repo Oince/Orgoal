@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { onCreated, onMounted } from "vue";
+import { onMounted } from "vue";
 export default {
   name: "ActivityList",
   setup: function () {
@@ -46,11 +46,7 @@ export default {
 
     // methods
 
-    // lifecycle hook
-    onCreated(() => {
-      this.activityID = this.$route.params.id;
-    });
-
+    // hooks
     onMounted(() => {
       const axios = require("axios").default;
       const URI = "/activity/" + this.activityID; // API 이거 맞나? 확인 필요

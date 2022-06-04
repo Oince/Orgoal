@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import axios from "axios";
 export default {
   name: "SignUp",
@@ -95,8 +94,6 @@ export default {
     let passwordQuestion = "PETNAME";
     let passwordAnswer = "";
     let errorMessage = "";
-
-    const store = useStore();
 
     // methods
     const qChange = function (event) {

@@ -71,9 +71,6 @@ export default {
     let searchText = "";
     let hasNewAlarm = false;
 
-    // Navbar의 notice는 GET하여 받는 것으로 수정해야 함
-    let notice = computed(() => store.getters["myactivity/getNotice"]);
-
     //methods
     const doLogout = function () {
       store
@@ -117,6 +114,7 @@ export default {
       hasNewAlarm,
       nickname,
       onClickSearchButton,
+      doLogout,
     };
   },
 };
