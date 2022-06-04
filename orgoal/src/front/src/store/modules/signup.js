@@ -18,7 +18,7 @@ export const signup = {
         //     question: this.passwordQuestion,
         //     answer: this.passwordAnswer,
         //   };
-        let res = await axios.post("/signup", signupInfo);
+        let res = await axios.post("/api/signup", signupInfo);
         if (res.status == 201) {
           console.log("회원가입 성공");
           result = true;

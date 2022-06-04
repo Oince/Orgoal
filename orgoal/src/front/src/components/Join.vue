@@ -51,7 +51,7 @@ export default {
         },
       };
       axios
-        .post("/activity/" + activityID.toString(), joinInfo, config)
+        .post("/api/activity/" + activityID.toString(), joinInfo, config)
         .then(() => {
           if (confirm("신청이 완료되었습니다. 마이페이지로 이동하시겠습니까?"))
             this.$router.push("/mypage");

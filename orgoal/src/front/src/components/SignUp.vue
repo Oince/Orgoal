@@ -138,7 +138,7 @@ export default {
         answer: this.passwordAnswer,
       };
       axios
-        .post("/signup", signupInfo)
+        .post("/api/signup", signupInfo)
         .then(() => {
           alert("가입되었습니다. 환영합니다!");
           this.$router.push("/signin");

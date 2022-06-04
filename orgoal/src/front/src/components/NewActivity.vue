@@ -73,7 +73,7 @@ export default {
         },
       };
       axios
-        .post("/activity", newactivityInfo, config)
+        .post("/api/activity", newactivityInfo, config)
         .then((res) => {
           alert("새 액티비티가 생성되었습니다!");
           this.$router.push("/activity/" + res.data.aid.toString());

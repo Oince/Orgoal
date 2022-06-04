@@ -16,7 +16,7 @@ export const join = {
         //      answer: this.answer,
         // }
         let res = await axios.post(
-          "/activity/" + activityID.toString(),
+          "/api/activity/" + activityID.toString(),
           joinInfo,
           config
         );
