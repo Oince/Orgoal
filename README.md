@@ -80,7 +80,7 @@ Create table activity (
     - /activity/{id}/accept?
   - /notification/info
 
-### POST /signup
+### POST /api/signup
 회원가입 API
 - req
   - email 이메일id
@@ -92,7 +92,7 @@ Create table activity (
   - 성공시 201
   - 실패시 409
 
-### POST /signin
+### POST /api/signin
 로그인 API
 - req
   - email 이메일 id
@@ -103,7 +103,7 @@ Create table activity (
   - 실패시 401
   
 
-### GET /search?query=""
+### GET /api/search?query=""
 액티비티 검색 API  
 쿼리 스트링 tag, query 사용  
 query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로 보내줌
@@ -119,7 +119,7 @@ query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로
   - 성공시 200
   - 검색 결과가 없으면 전체 리스트 최신순으로 보냄 코드 202
 
-### GET /nickname
+### GET /api/nickname
 
 이메일에 해당하는 유저의 닉네임을 가져오는 API  
 
@@ -129,7 +129,7 @@ query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로
   - nickname 해당 유저의 닉네임
 
 
-### GET /mypage/info
+### GET /api/mypage/info
 mypage 정보 API
 - req
   - 로그인 토큰
@@ -138,7 +138,7 @@ mypage 정보 API
   - 성공시 200
   - 실패시 401 or 404
 
-### GET /mypage/activity
+### GET /api/mypage/activity
 mypage 액티비티 정보 API
 - req
   - 로그인 토큰
@@ -147,7 +147,7 @@ mypage 액티비티 정보 API
   - title   액티비티 제목
   - state   액티비티 상태
 
-### POST /activity
+### POST /api/activity
 액티비티 등록 API
 - req
   - 로그인 토큰
@@ -158,7 +158,7 @@ mypage 액티비티 정보 API
   - 성공시 201 코드
   - 실패시 401 또는 404
 
-### GET /activity/{id}
+### GET /api/activity/{id}
 액티비티 관련 정보를 가져오는 API
 - req
   - 로그인 토큰
@@ -174,7 +174,7 @@ mypage 액티비티 정보 API
   - 실패시 404
   
 
-### POST /activity/{id}
+### POST /api/activity/{id}
 액티비티 신청 API  
 - req
   - 로그인 토큰
@@ -183,7 +183,7 @@ mypage 액티비티 정보 API
   - 성공시 201
   - 실패시 404 or 409
 
-### GET /activity/{id}/list
+### GET /api/activity/{id}/list
 해당 액티비티의 신청자를 가져오는 API  
 로그인 토큰을 통해 액티비티 게시자만 접근 가능
 
@@ -194,7 +194,7 @@ mypage 액티비티 정보 API
   - nickname 신청자 닉네임
   - answer 신청자의 질문 내용
 
-### POST /activity/{id}/accept?email=""
+### POST /api/activity/{id}/accept?email=""
 해당 액티비티 신청자의 신청을 수락하는 API  
 email 쿼리 스트링 사용
 
@@ -204,7 +204,7 @@ email 쿼리 스트링 사용
   - 성공시 201
   - 실패시 미정
 
-### GET /notification/info
+### GET /api/notification/info
 알림센터 정보를 가져오는 API
 - req
   - 로그인 토큰
