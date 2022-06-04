@@ -31,6 +31,11 @@ public class MemoryMemberRepository implements MemberRepository{
         return null;
     }
 
+    @Override
+    public Member findById(int mid) {
+        return null;
+    }
+
     public static void clearStore() {
         mid = 0;
         store.clear();

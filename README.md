@@ -1,8 +1,7 @@
 # Orgoal 
 **수정사항**
 
-- 토큰에 mid 값 추가
-- /search 검색 실패시 202코드
+- GET /activity/{id} 에 nickname 추가
 
 프론트 작업은 orgoal/src/front에서 해주시고  
 빌드 결과물은 orgoal/src/main/recources/static 에 출력해주세요  
@@ -166,6 +165,7 @@ mypage 액티비티 정보 API
   - content 액티비티 본문
   - state 액티비티 상태
   - mid   작성자 id
+  - nickname 작성자 닉네임
   - lastModification 작성 날짜
   - 성공시 200
   - 실패시 404
