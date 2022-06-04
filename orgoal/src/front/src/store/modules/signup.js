@@ -6,7 +6,7 @@ export const signup = {
   getters: {},
   mutations: {},
   actions: {
-    // 로그인
+    // 회원가입
     async doSignup(signupInfo) {
       let result = false;
       let resultErr = null;
@@ -18,21 +18,13 @@ export const signup = {
         //     question: this.passwordQuestion,
         //     answer: this.passwordAnswer,
         //   };
-        let hostname = window.location.hostname;
-        let res = await axios.post(hostname + "/signup", signupInfo);
-        /* 응답 객체 res
-          {
-            "data": {
-              "success": true
-            }
-          }
-        */
+        let res = await axios.post("/signup", signupInfo);
         if (res.status == 201) {
           console.log("회원가입 성공");
           result = true;
         } else {
           console.log("회원가입 실패");
-          let err = new Error("Request failed with status code 401");
+          let err = new Error("Request failed with status code 409!");
           err.response = {
             data: { success: false, errormessage: "회원가입에 실패했습니다." },
           };

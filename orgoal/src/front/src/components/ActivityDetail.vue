@@ -43,6 +43,7 @@ export default {
     var activityHostEmail = "admin@orgoal.com";
     var activityHostNickname = "김오르골";
     var activityLastModificationDate = "2022-05-18";
+
     // methods
 
     // lifecycle hook

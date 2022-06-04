@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { computed } from "vue"; // computed 속성 사용을 위해 필요
-import { useStore } from "vuex"; // vuex 스토리지 사용
+// import { computed } from "vue"; // computed 속성 사용을 위해 필요
+// import { useStore } from "vuex"; // vuex 스토리지 사용
 import navbar from "./components/NavBar.vue";
 
 export default {
@@ -19,22 +19,25 @@ export default {
       return this.$store.getters.getMsg;
     },
   },
-  setup: function () {
-    // data
-    const store = useStore();
-    const username = store.state.User.username;
+  // setup: function () {
+  //   // data
+  //   const store = useStore();
+  //   const username = store.state.User.username;
 
-    // computed
-    const userString = computed(() => store.state.User.username + "님"); // 테스트용
+  //   // computed
+  //   const userString = computed(() => store.state.User.username + "님"); // 테스트용
 
-    // methods
+  //   // methods
 
-    return { username, userString };
-  },
+  //   return { username, userString };
+  // },
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

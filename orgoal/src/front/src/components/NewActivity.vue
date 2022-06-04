@@ -4,7 +4,7 @@
       <div class="newactivityTop">
         <h2 class="title">Create Activity</h2>
         <p class="buttons">
-          <button @click.prevent="createActivity()" class="button blue">
+          <button @click.prevent="createNewActivity()" class="button blue">
             등록
           </button>
           <button @click.prevent="doCancel()" class="button">취소</button>
@@ -23,7 +23,7 @@
         />
       </div>
       <div>
-        <input
+        <textarea
           type="text"
           id="contentInput"
           class="input_text"
@@ -38,20 +38,22 @@
 </template>
 
 <script>
-// import { useStore } from "vuex";
+import { useStore } from "vuex";
+import axios from "axios";
 
 export default {
   name: "NewActivity",
   setup: function () {
     // data
-    // const store = useStore();
+    const store = useStore();
+    const token = store.state.signin.token;
 
     let title = "";
     let content = "";
     let errorMessage = "";
 
     // methods
-    const createActivity = function () {
+    const createNewActivity = function () {
       if (this.title == "") {
         alert("제목을 입력하세요.");
         this.$refs.titleInput.focus();
@@ -61,13 +63,45 @@ export default {
         this.$refs.contentInput.focus();
         return;
       }
+      let newactivityInfo = {
+        title: this.title,
+        content: this.content,
+      };
+      let config = {
+        headers: {
+          token: this.token,
+        },
+      };
+      axios
+        .post("/activity", newactivityInfo, config)
+        .then((res) => {
+          alert("새 액티비티가 생성되었습니다!");
+          this.$router.push("/activity/" + res.data.aid.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // store
+      //   .dispatch("newactivity/createNewActivity", newactivityInfo, token)
+      //   .then(() => {
+      //     // 액티비티 작성 완료 후 작성한 액티비티 화면으로
+      //     newAid = computed(() => store.getters["newactivity/getNewAid"]);
+      //     this.$router.push("/activity/" + newAid.toString());
+      //   });
     };
 
     const doCancel = function () {
       this.$router.push("../");
     };
 
-    return { title, content, errorMessage, createActivity, doCancel };
+    return {
+      token,
+      title,
+      content,
+      errorMessage,
+      createNewActivity,
+      doCancel,
+    };
   },
 };
 </script>
@@ -84,12 +118,14 @@ export default {
 .newactivityForm div > #titleInput {
   width: 400px;
   font-size: 20px;
-  height: 25px;
+  height: 32px;
+  margin: 10px 0 10px 0;
 }
 .newactivityForm div > #contentInput {
   width: 400px;
   font-size: 20px;
   height: 400px;
+  margin: 10px 0 10px 0;
 }
 .buttons {
   position: relative;

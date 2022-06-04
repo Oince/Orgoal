@@ -29,7 +29,7 @@ public class MemberService {
         //회원가입 폼으로 member 객체 생성
         Member member = new Member(signUpForm);
 
-        //이미 존재하는 회원이라면 null 리턴
+        //이미 존재하는 회원이라면 예외 발생
         if (isDuplicate(member)) {
             throw new DuplicateMemberException("Duplicated");
         }
@@ -43,16 +43,16 @@ public class MemberService {
     }
 
     //중복된 회원인지를 판단하는 메소드
-    public boolean isDuplicate(Member member) {
+    private boolean isDuplicate(Member member) {
         Member byEmail = memberRepository.findByEmail(member.getEmail());
         return byEmail != null;
     }
 
-    public String signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException {
+    public String signIn(LoginForm loginForm) throws NoSuchAlgorithmException, NotFoundException, IllegalStateException {
 
         //email로 찾아서 member 가져옴
         Member member = memberRepository.findByEmail(loginForm.getEmail());
-        //null이면 member가 존재하지 않는 것, null 리턴
+        //null이면 member가 존재하지 않는 것, 예외 던짐
         if (member == null) {
             throw new NotFoundException("Not exist");
         }
@@ -61,13 +61,16 @@ public class MemberService {
         String encryptPassword = SHA256.encrypt(loginForm.getPassword());
         loginForm.setPassword(encryptPassword);
 
-        //같으면 member 리턴, 다르면 null 리턴
+        //같으면 member 리턴, 다르면 예외 던짐
         if (member.getPassword().equals(loginForm.getPassword())) {
-            return JwtTokenProvider.createToken(member.getEmail());
+            return JwtTokenProvider.createToken(member.getEmail(), member.getMid());
         } else {
-            return null;
+            throw new IllegalStateException("Password not match");
         }
     }
 
+    public Member getMember(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
 }

@@ -1,5 +1,7 @@
 // 새로운 페이지를 생성했으면 여기서 라우터에 추가하기
 import * as VueRouter from "vue-router";
+// import { useStore } from "vuex";
+// import { computed } from "vue";
 
 // 주소와 vue 컴포넌트 매칭
 const routes = [
@@ -23,7 +25,7 @@ const routes = [
   {
     path: "/mypage",
     component: () => import("./components/Mypage.vue"),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: "/newActivity",
@@ -41,7 +43,7 @@ const routes = [
     path: "/search",
     name: "search",
     component: () => import("./components/ActivityList.vue"),
-  }
+  },
 ];
 
 const router = VueRouter.createRouter({
@@ -49,9 +51,12 @@ const router = VueRouter.createRouter({
   routes,
 });
 
+// const store = useStore();
+// const isSignedin = computed(() => store.getters["signin/hasToken"]).value;
 // 허용되지 않은 접근 필터링. ex: 로그인 없이 마이페이지
 router.beforeEach(function (to) {
-  if (to.meta.requiresAuth /*&& !auth.isLoggedIn()*/) {
+  if (to.meta.requiresAuth) {
+    // && !isSignedin
     return {
       path: "/signin",
       // query: { redirect: to.fullPath } // 로그인 화면 접근 이전 화면으로 리다이렉트하기 위해 저장해두기.

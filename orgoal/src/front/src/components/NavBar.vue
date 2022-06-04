@@ -2,7 +2,8 @@
   <div class="navbar">
     <div class="desktop_container">
       <div class="content">
-        <router-link to="/" class="logo">
+        <router-link to="/">
+          <span class="logo">로고</span>
           <span>ORGOAL</span>
         </router-link>
         <div class="navbar-menu">
@@ -21,8 +22,12 @@
           <div class="navbar-right">
             <!--로그인 여부에 따라 조건부 렌더링-->
             <div v-if="!isSignedin">
-              <router-link to="/signin"><button>로그인</button></router-link>
-              <router-link to="/signup"><button>회원가입</button></router-link>
+              <router-link to="/signin"
+                ><button class="navbar-button">로그인</button></router-link
+              >
+              <router-link to="/signup"
+                ><button class="navbar-button">회원가입</button></router-link
+              >
             </div>
             <div v-if="isSignedin">
               <span>{{ username }}님 </span>
@@ -61,12 +66,26 @@ export default {
   setup: function () {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
-    let isSignedin = computed(() => store.getters["signin/hasToken"]);
-    isSignedin = true;
+    const isSignedin = computed(() => store.getters["signin/hasToken"]);
+    const nickname = computed(() => store.getters["nickname/getNickname"]);
     let searchText = "";
     let hasNewAlarm = false;
 
+    // Navbar의 notice는 GET하여 받는 것으로 수정해야 함
+    let notice = computed(() => store.getters["myactivity/getNotice"]);
+
     //methods
+    const doLogout = function () {
+      store
+        .dispatch("signin/doLogout")
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     let onClickSearchButton = function () {
       if (this.searchText == "") {
         alert("검색어를 입력하세요");
@@ -96,6 +115,7 @@ export default {
       isSignedin,
       searchText,
       hasNewAlarm,
+      nickname,
       onClickSearchButton,
     };
   },
@@ -109,7 +129,7 @@ export default {
 }
 .content {
   display: flex;
-  width: 800px;
+  width: 1280px;
   margin: 0 auto;
   justify-content: space-between;
   padding: 1em 0;

@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkfront"]=self["webpackChunkfront"]||[]).push([[10],{10:function(n,e,r){function t(n,e,r,t,u,f){return"여기에 마이페이지 화면 만들기"}r.r(e),r.d(e,{default:function(){return c}});var u={name:"MyPage"},f=r(744);const a=(0,f.Z)(u,[["render",t]]);var c=a}}]);
-//# sourceMappingURL=10.57d9f590.js.map
