@@ -14,11 +14,6 @@ public class MemoryMemberRepository implements MemberRepository{
     private static int mid = 0;
 
     @Override
-    public List<Member> getMembers() {
-        return new ArrayList<>(store.values());
-    }
-
-    @Override
     public void save(Member member) {
         member.setMid(++mid);
         store.put(member.getMid(), member);
@@ -36,7 +31,8 @@ public class MemoryMemberRepository implements MemberRepository{
         return null;
     }
 
-    public void clearStore() {
+    public static void clearStore() {
+        mid = 0;
         store.clear();
     }
 

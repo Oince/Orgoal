@@ -3,13 +3,13 @@
     <h1>회원가입</h1>
     <form class="signupform">
       <div>
-        <label for="memberIdInput">아이디 (이메일)</label>
+        <label for="emailInput">아이디 (이메일)</label>
         <input
           type="text"
-          id="memberIdInput"
+          id="emailInput"
           class="input_text"
-          ref="memberIdInput"
-          v-model.trim="memberId"
+          ref="emailInput"
+          v-model.trim="email"
         />
       </div>
       <div>
@@ -45,13 +45,20 @@
       </div>
       <div>
         <label for="passwordQuestionInput">비밀번호 분실 시 질문</label>
-        <input
-          type="text"
+        <!-- <input
+          type="password"
           id="passwordQuestionInput"
           class="input_text"
           ref="passwordQuestionInput"
           v-model.trim="passwordQuestion"
-        />
+        /> -->
+        <select @change="qChange($event)">
+          <option value="1">처음으로 기른 애완동물의 이름은 무엇입니까?</option>
+          <option value="2">
+            어릴적 다녔었던 초등학교의 이름은 무엇입니까?
+          </option>
+          <option value="3">가장 좋아하는 색은 무엇입니까?</option>
+        </select>
       </div>
       <div>
         <label for="passwordAnswerInput">답변</label>
@@ -70,29 +77,39 @@
         <button @click.prevent="doCancel()" class="button">취소</button>
       </p>
     </form>
-    <p>{{ errorMessage }}</p>
+    <p id="error">{{ errorMessage }}</p>
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
+import axios from "axios";
 export default {
   name: "SignUp",
   setup: function () {
     // data
-    let memberId = "";
+    let email = "";
     let memberPassword = "";
     let passwordConfirm = "";
     let nickname = "";
-    let passwordQuestion = "";
+    let passwordQuestion = "PETNAME";
     let passwordAnswer = "";
     let errorMessage = "";
 
-    const store = useStore();
-
     // methods
+    const qChange = function (event) {
+      if (event.target.value == 1) {
+        this.passwordQuestion = "PETNAME";
+        return;
+      } else if (event.target.value == 2) {
+        this.passwordQuestion = "ELEMENTARYSCHOOL";
+        return;
+      } else if (event.target.value == 3) {
+        this.passwordQuestion = "FAVORITECOLOR";
+        return;
+      }
+    };
     const doSignup = function () {
-      if (this.memberId == "") {
+      if (this.email == "") {
         alert("아이디를 입력하세요.");
         this.$refs.memberIdInput.focus();
         return;
@@ -104,53 +121,47 @@ export default {
         alert("비밀번호 재확인이 일치하지 않습니다.");
         this.$refs.passwordConfirm.focus();
         return;
-      } else if (this.passwordQuestion == "") {
-        alert("비밀번호 분실 시 질문을 입력하세요.");
-        this.$refs.passwordQuestionInput.focus();
+      } else if (this.nickname == "") {
+        alert("닉네임을 입력하세요.");
+        this.$refs.nicknameInput.focus();
         return;
       } else if (this.passwordAnswer == "") {
         alert("답변을 입력하세요.");
         this.$refs.passwordAnswerInput.focus();
         return;
-      } else if (this.nickname == "") {
-        alert("닉네임을 입력하세요.");
-        this.$refs.nicknameInput.focus();
-        return;
       }
-
       let signupInfo = {
-        email: this.memberId,
+        email: this.email,
         password: this.memberPassword,
         nickname: this.nickname,
         question: this.passwordQuestion,
         answer: this.passwordAnswer,
       };
-      store
-        .dispatch("signup/doSignup", signupInfo)
+      axios
+        .post("/signup", signupInfo)
         .then(() => {
+          alert("가입되었습니다. 환영합니다!");
           this.$router.push("/signin");
         })
         .catch((err) => {
-          this.errorMessage = err.response.data.errormessage;
+          console.log(err);
         });
     };
     const doCancel = function () {
       this.$router.push("../");
     };
     return {
-      memberId,
+      email,
       memberPassword,
       passwordConfirm,
       nickname,
       passwordQuestion,
       passwordAnswer,
       errorMessage,
+      qChange,
       doSignup,
       doCancel,
     };
-  },
-  mounted() {
-    this.$refs.memberIdInput.focus();
   },
 };
 </script>
@@ -182,6 +193,11 @@ export default {
   font-size: 20px;
   height: 40px;
 }
+.signupform div > select {
+  width: 400px;
+  font-size: 15px;
+  height: 40px;
+}
 .buttons {
   position: relative;
   height: 40px;
@@ -208,5 +224,8 @@ export default {
 hr {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+#error {
+  color: red;
 }
 </style>

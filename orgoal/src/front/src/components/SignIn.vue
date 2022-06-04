@@ -3,14 +3,14 @@
     <h1>Orgoal</h1>
     <form class="signinform">
       <p>
-        <label for="memberIdInput">ID</label>
+        <label for="emailInput">ID</label>
         <input
           type="text"
-          id="memberIdInput"
+          id="emailInput"
           class="input_text"
-          ref="memberIdInput"
-          v-model.trim="memberId"
-          placeholder="아이디 (이메일)"
+          ref="emailInput"
+          v-model.trim="email"
+          placeholder="아이디"
         />
       </p>
       <p>
@@ -42,15 +42,15 @@ export default {
     // data
     const store = useStore();
 
-    let memberId = "";
+    let email = "";
     let memberPassword = "";
     let errorMessage = "";
 
     // methods
     const doSignin = function () {
-      if (this.memberId == "") {
+      if (this.email == "") {
         alert("아이디를 입력하세요.");
-        this.$refs.memberIdInput.focus();
+        this.$refs.emailInput.focus();
         return;
       } else if (this.memberPassword == "") {
         alert("비밀번호를 입력하세요.");
@@ -58,25 +58,32 @@ export default {
         return;
       }
       let memberInfo = {
-        email: this.memberId,
+        email: this.email,
         password: this.memberPassword,
       };
       store
         .dispatch("signin/doSignin", memberInfo)
         .then(() => {
+          // 로그인 성공 시 닉네임 받아와서 nickname 모듈에 저장
+          console.log(store.state.signin.token);
+          store
+            .dispatch("nickname/reqNickname", this.email)
+            .catch((err2) => console.log(err2));
           this.$router.push("/");
         })
         .catch((err) => {
           this.errorMessage = err.response.data.errormessage;
         });
     };
+
     const doCancel = function () {
       this.$router.push("../");
     };
-    return { memberId, memberPassword, errorMessage, doSignin, doCancel };
+
+    return { email, memberPassword, errorMessage, doSignin, doCancel };
   },
   mounted() {
-    this.$refs.memberIdInput.focus();
+    this.$refs.emailInput.focus();
   },
 };
 </script>

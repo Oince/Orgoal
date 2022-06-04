@@ -1,8 +1,11 @@
 # Orgoal 
-아무것도 없는 초기 상태입니다.  
+**수정사항**
+
+- 토큰에 mid 값 추가
+- /search 검색 실패시 202코드
+
 프론트 작업은 orgoal/src/front에서 해주시고  
 빌드 결과물은 orgoal/src/main/recources/static 에 출력해주세요  
-나도 잘 모르니까 자세한건 검색 ㄱㄱ  
 
 프론트 페이지 빌드 오류 시 해당 디렉토리에서  
 ```
@@ -63,15 +66,16 @@ Create table activity (
 
 ### 개요
 - /
-  - /signup 완료
-  - /signin 완료
-  - /search
-  - /mypage/info
+  - **/signup 완료**
+  - **/signin 완료**
+  - **/search 완료**
+  - **/nickname 완료**
+  - **/mypage/info 완료**
   - /mypage/activity
-  - /activity
-    - /activity/{id}
+  - **/activity 완료**
+    - **/activity/{id} 완료**
     - /activity/{id}/list
-    - /activity/{id}/?submit
+    - /activity/{id}/accept?
   - /notification/info
 
 ### POST /signup
@@ -92,20 +96,35 @@ Create table activity (
   - email 이메일 id
   - password 비밀번호
 - res
+  - token 토큰
   - 성공시 200
   - 실패시 401
+  
 
-### GET /search?tag=""&query=""
+### GET /search?query=""
 액티비티 검색 API  
 쿼리 스트링 tag, query 사용  
+query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로 보내줌
 
 - req : x
 - res
   - aid     액티비티 id
   - title   액티비티 제목
+  - content 액티비티 내용
   - state   액티비티 상태
-  - date    액티티비 마지막 수정 날짜
-  - writer  작성자 id
+  - mid 작성자id
+  - lastModification    액티티비 마지막 수정 날짜
+  - 성공시 200
+  - 검색 결과가 없으면 전체 리스트 최신순으로 보냄 코드 202
+
+### GET /nickname
+
+이메일에 해당하는 유저의 닉네임을 가져오는 API  
+
+- req 
+  - token 로그인 토큰
+- res
+  - nickname 해당 유저의 닉네임
 
 
 ### GET /mypage/info
@@ -114,6 +133,8 @@ mypage 정보 API
   - 로그인 토큰
 - res
   - nickname 유저 닉네임
+  - 성공시 200
+  - 실패시 401 or 404
 
 ### GET /mypage/activity
 mypage 액티비티 정보 API
@@ -133,21 +154,22 @@ mypage 액티비티 정보 API
 - res
   - aid     액티비티 id
   - 성공시 201 코드
-  - 실패시 미정
+  - 실패시 401 또는 404
 
 ### GET /activity/{id}
 액티비티 관련 정보를 가져오는 API
 - req
   - 로그인 토큰
 - res
+  - aid 액티비티 아이디
   - title 액티비티 제목
   - content 액티비티 본문
-  - email   작성자 이메일 id
-  - nickname 작성자 닉네임
+  - state 액티비티 상태
+  - mid   작성자 id
   - lastModification 작성 날짜
-
-
-이 이후의 API는 관련 DB 설계 전이기 때문에 변경 가능성이 있음
+  - 성공시 200
+  - 실패시 404
+  
 
 ### POST /activity/{id}
 액티비티 신청 API  
@@ -156,7 +178,7 @@ mypage 액티비티 정보 API
   - answer 액티비티 질문 답변 내용
 - res
   - 성공시 201
-  - 실패시 미정
+  - 실패시 404 or 409
 
 ### GET /activity/{id}/list
 해당 액티비티의 신청자를 가져오는 API  
