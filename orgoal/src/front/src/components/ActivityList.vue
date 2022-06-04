@@ -5,17 +5,17 @@
         <div class="activity-list-element">
           <div class="activity-status">
             <!--액티비티 상태-->
-            <span v-if="activity.status == 'r'">모집중</span>
-            <span v-if="activity.status == 'p'">진행중</span>
-            <span v-if="activity.status == 'e'">완료</span>
+            <span v-if="activity.state == 'R'">모집중</span>
+            <span v-if="activity.state == 'P'">진행중</span>
+            <span v-if="activity.state == 'E'">완료</span>
           </div>
           <div class="activity-title">
-            <router-link v-bind:to="getURLbyActivityID(activity.id)">{{
+            <router-link v-bind:to="getURLbyActivityID(activity.aid)">{{
               activity.title
             }}</router-link>
           </div>
           <div class="activity-date">
-            {{ activity.date }}
+            {{ activity.lastModification }}
           </div>
         </div>
       </li>
@@ -33,13 +33,13 @@ export default {
     let activities = ref([
       // TODO : 서버와의 통신 잘 되는 것 확인하면 테스트용 데이터 주석처리하기
       {
-        id: 111,
+        aid: 111,
         status: "r", //'Recruit', 'Proceeding', 'End'
         title: "(테스트) 상도동 모각코 그룹 모집",
         date: "2022-05-11",
       },
       {
-        id: 222,
+        aid: 222,
         status: "p",
         title: "(테스트) 숭실대 축제 같이 갈 사람 모집합니다",
         date: "2022-05-09",
@@ -58,12 +58,23 @@ export default {
       console.log(query);
       if (query === undefined) query = "";
       const URI = "/search?" + "query=" + query;
+
       axios
         .get(URI)
         .then((response) => {
           console.log("Loaded Activity List"); // for Debug
           activities.value = [];
-          response.forEach((activity) => activities.value.push(activity));
+          response.data.forEach((activity) => {
+            let datetime = new Date(activity.lastModification);
+            let year = datetime.getFullYear();
+            let month = datetime.getMonth() + 1;
+            month = (month > 9 ? "" : "0") + month;
+            let date = datetime.getDate();
+            date = (date > 9 ? "" : "0") + date;
+            activity.lastModification = `${year}-${month}-${date}`;
+            console.log(activity.lastModification);
+            activities.value.push(activity);
+          });
         })
         .catch((error) => {
           console.log(error);

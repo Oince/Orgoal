@@ -100,7 +100,7 @@ export default {
         .get(URI, store.state.signin.memberId)
         .then((response) => {
           console.log("get if there is new events"); // for Debug
-          this.hasNewAlarm = response.hasNewEvent;
+          this.hasNewAlarm = response.data.hasNewEvent;
         })
         .catch((error) => {
           console.log(error);
