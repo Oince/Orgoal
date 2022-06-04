@@ -57,7 +57,7 @@ export default {
       let query = route.query.query;
       console.log(query);
       if (query === undefined) query = "";
-      const URI = "/search?" + "query=" + query;
+      const URI = "/api/search?" + "query=" + query;
 
       axios
         .get(URI)

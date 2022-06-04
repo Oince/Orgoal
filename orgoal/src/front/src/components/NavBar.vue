@@ -95,7 +95,7 @@ export default {
 
     onMounted(() => {
       const axios = require("axios").default;
-      const URI = "/notification";
+      const URI = "/api/notification";
       axios
         .get(URI, store.state.signin.memberId)
         .then((response) => {

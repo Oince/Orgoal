@@ -90,7 +90,7 @@ export default {
         token: this.token,
       },
     };
-    axios.get("/mypage/activity", config).then((response) => {
+    axios.get("/api/mypage/activity", config).then((response) => {
       console.log("GET Mypage Activity SUCCESS");
       response.data
         .forEach((myActivity) => {

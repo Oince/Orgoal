@@ -25,7 +25,7 @@ export const nickname = {
           email: email,
         },
       };
-      axios.get("/nickname", config).then((response) => {
+      axios.get("/api/nickname", config).then((response) => {
         commit("setNickname", response.data.nickname);
       });
     },

@@ -51,7 +51,7 @@ export default {
       const router = useRoute();
       activityID = router.params.id;
       const axios = require("axios").default;
-      const URI = `/activity/${activityID}`;
+      const URI = `/api/activity/${activityID}`;
       axios
         .get(URI)
         .then((response) => {
