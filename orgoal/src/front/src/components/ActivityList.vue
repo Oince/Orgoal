@@ -24,27 +24,27 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 export default {
   name: "ActivityList",
   setup: function () {
     // data
-    var activities = [
-      // 테스트용
-      // {
-      //   id: 111,
-      //   status: "r", //'Recruit', 'Proceeding', 'End'
-      //   title: "(테스트) 상도동 모각코 그룹 모집",
-      //   date: "2022-05-11",
-      // },
-      // {
-      //   id: 222,
-      //   status: "p",
-      //   title: "(테스트) 숭실대 축제 같이 갈 사람 모집합니다",
-      //   date: "2022-05-09",
-      // },
-    ];
+    let activities = ref([
+      // TODO : 서버와의 통신 잘 되는 것 확인하면 테스트용 데이터 주석처리하기
+      {
+        id: 111,
+        status: "r", //'Recruit', 'Proceeding', 'End'
+        title: "(테스트) 상도동 모각코 그룹 모집",
+        date: "2022-05-11",
+      },
+      {
+        id: 222,
+        status: "p",
+        title: "(테스트) 숭실대 축제 같이 갈 사람 모집합니다",
+        date: "2022-05-09",
+      },
+    ]);
     // methods
     function getURLbyActivityID(id) {
       return "/activity/" + id.toString();
@@ -62,7 +62,8 @@ export default {
         .get(URI)
         .then((response) => {
           console.log("Loaded Activity List"); // for Debug
-          response.forEach((activity) => this.activities.push(activity));
+          activities.value = [];
+          response.forEach((activity) => activities.value.push(activity));
         })
         .catch((error) => {
           console.log(error);
