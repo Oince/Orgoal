@@ -17,7 +17,7 @@ import panoplie.orgoal.service.MemberService;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/mypage")
+@RequestMapping("/api/mypage")
 public class MypageController {
 
     private final MemberService memberService;

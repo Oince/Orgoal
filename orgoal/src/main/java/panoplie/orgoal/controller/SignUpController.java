@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/signup")
+@RequestMapping("/api/signup")
 public class SignUpController {
 
     private final MemberService memberService;

@@ -2,6 +2,9 @@
 **수정사항**
 
 - GET /activity/{id} 에 nickname 추가
+- api 경로 수정
+  - 경로 앞에 /api 추가
+
 
 프론트 작업은 orgoal/src/front에서 해주시고  
 빌드 결과물은 orgoal/src/main/recources/static 에 출력해주세요  
@@ -64,7 +67,7 @@ Create table activity (
 ## API
 
 ### 개요
-- /
+- /api
   - **/signup 완료**
   - **/signin 완료**
   - **/search 완료**
@@ -73,7 +76,7 @@ Create table activity (
   - /mypage/activity
   - **/activity 완료**
     - **/activity/{id} 완료**
-    - /activity/{id}/list
+    - **/activity/{id}/list 완료**
     - /activity/{id}/accept?
   - /notification/info
 
