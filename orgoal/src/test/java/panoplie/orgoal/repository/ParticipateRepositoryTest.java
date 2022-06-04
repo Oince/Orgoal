@@ -36,4 +36,26 @@ class ParticipateRepositoryTest {
         List<Applicant> applicants = participateRepository.waitingList(43);
         assertEquals(applicants.get(0).getAnswer(), "안녕하세요");
     }
+
+    @Test
+    @DisplayName("키로 찾기")
+    void findById() {
+        int aid = 43;
+        int mid = 21;
+        Participate byId = participateRepository.findById(aid, mid);
+        assertEquals("안녕하세요", byId.getAnswer());
+    }
+
+    @Test
+    @DisplayName("신청 요청 수락")
+    void accept() {
+        int aid = 161;
+        int mid = 21;
+
+        participateRepository.accept(aid, mid);
+
+        Participate byId = participateRepository.findById(aid, mid);
+        assertEquals('A', byId.getState());
+
+    }
 }

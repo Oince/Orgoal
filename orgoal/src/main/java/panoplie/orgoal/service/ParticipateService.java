@@ -52,7 +52,15 @@ public class ParticipateService {
 
     }
 
-    public void acceptMember(int aid, String applicantEmail, String hostEmail) {
+    public void acceptMember(int aid, String applicantEmail, String hostEmail) throws IllegalAccessException {
+        Activity activity = activityService.getActivity(aid);
+        Member member = memberService.getMember(hostEmail);
+        if (activity.getMid() != member.getMid()) {
+            throw new IllegalAccessException("Access failed");
+        }
+
+        Member applicant = memberService.getMember(applicantEmail);
+        participateRepository.accept(aid, applicant.getMid());
 
     }
 

@@ -68,4 +68,16 @@ public class Participate {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return "Participate{" +
+                "aid=" + aid +
+                ", mid=" + mid +
+                ", applicationDate=" + applicationDate +
+                ", state=" + state +
+                ", changed=" + changed +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

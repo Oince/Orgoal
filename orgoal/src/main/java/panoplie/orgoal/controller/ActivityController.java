@@ -129,10 +129,16 @@ public class ActivityController {
     }
 
     //해당 액티비티에 신청한 신청자를 수락함, 해당 액티비티 aid, 수락할 이용자의 emall, 토큰을 받음
-//    @PostMapping("/{aid}/accept")
-//    public ResponseEntity acceptApplicant(@PathVariable int aid, @RequestParam String applicantEmail, HttpServletRequest request)  {
-//        String hostEmail = JwtTokenProvider.getUserClaim(request.getHeader("token")).getEmail();
-//
-//    }
+    @PostMapping("/{aid}/accept")
+    public ResponseEntity<String> acceptApplicant(@PathVariable int aid, @RequestParam String email, HttpServletRequest request)  {
+        String hostEmail = JwtTokenProvider.getUserClaim(request.getHeader("token")).getEmail();
+        try {
+            participateService.acceptMember(aid, email, hostEmail);
+        } catch (IllegalAccessException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
