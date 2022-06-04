@@ -1,8 +1,12 @@
 package panoplie.orgoal.repository;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Activity;
+import panoplie.orgoal.domain.ParticipatingActivity;
 
 import java.util.List;
 
@@ -25,4 +29,6 @@ public interface ActivityRepository {
             before = false, resultType = Integer.class)
     void save(@Param("act") Activity activity);
 
+    @Select("Select aid, title, state from activity where mid = #{mid}")
+    List<ParticipatingActivity> findByMid(int mid);
 }

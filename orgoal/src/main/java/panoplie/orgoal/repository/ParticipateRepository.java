@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Applicant;
 import panoplie.orgoal.domain.Participate;
+import panoplie.orgoal.domain.ParticipatingActivity;
 
 import java.util.List;
 
@@ -24,5 +25,10 @@ public interface ParticipateRepository {
             "set state = 'A' " +
             "where aid = #{aid} and mid = #{mid}")
     void accept(int aid, int mid);
+
+    @Select("Select aid, title, participate.state " +
+            "from activity join participate using(aid) " +
+            "where participate.mid = #{mid}")
+    List<ParticipatingActivity> participatingList(int mid);
 
 }

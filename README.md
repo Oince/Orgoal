@@ -73,7 +73,7 @@ Create table activity (
   - **/search 완료**
   - **/nickname 완료**
   - **/mypage/info 완료**
-  - /mypage/activity
+  - **/mypage/activity 완료**
   - **/activity 완료**
     - **/activity/{id} 완료**
     - **/activity/{id}/list 완료**

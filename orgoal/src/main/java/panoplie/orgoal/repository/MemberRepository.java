@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Member;
 
-import java.util.List;
-
 @Repository
 //DB의 member 테이블에 접근
 public interface MemberRepository {

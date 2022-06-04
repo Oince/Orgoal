@@ -3,16 +3,15 @@ package panoplie.orgoal.service;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import panoplie.orgoal.domain.Activity;
-import panoplie.orgoal.domain.Applicant;
-import panoplie.orgoal.domain.Member;
-import panoplie.orgoal.domain.Participate;
+import org.springframework.transaction.annotation.Transactional;
+import panoplie.orgoal.domain.*;
 import panoplie.orgoal.repository.ParticipateRepository;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class ParticipateService {
 
     private final ParticipateRepository participateRepository;
@@ -55,5 +54,9 @@ public class ParticipateService {
 
     public void acceptMember(int aid, String email) {
 
+    }
+
+    public List<ParticipatingActivity> getParticipateList(int mid) {
+        return participateRepository.participatingList(mid);
     }
 }
