@@ -57,7 +57,7 @@ public class MypageController {
     }
 
     @GetMapping("/activity")
-    public ResponseEntity<List> getActivity(HttpServletRequest request) {
+    public ResponseEntity<JSONObject> getActivity(HttpServletRequest request) {
 
         String email;
 
@@ -75,7 +75,11 @@ public class MypageController {
         }
 
         List<List<ParticipatingActivity>> myActivity = mypageService.getMyActivity(member.getMid());
-        return new ResponseEntity<>(myActivity, HttpStatus.OK);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("list1", myActivity.get(0));
+        jsonObject.put("list2", myActivity.get(1));
+        return new ResponseEntity<>(jsonObject, HttpStatus.OK);
 
     }
 }

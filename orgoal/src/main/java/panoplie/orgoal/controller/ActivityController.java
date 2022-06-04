@@ -130,8 +130,8 @@ public class ActivityController {
 
     //해당 액티비티에 신청한 신청자를 수락함, 해당 액티비티 aid, 수락할 이용자의 emall, 토큰을 받음
 //    @PostMapping("/{aid}/accept")
-//    public ResponseEntity acceptApplicant(@PathVariable int aid, @RequestParam String email, HttpServletRequest request)  {
-//        String token = JwtTokenProvider.getUserClaim(request.getHeader("token")).getEmail();
+//    public ResponseEntity acceptApplicant(@PathVariable int aid, @RequestParam String applicantEmail, HttpServletRequest request)  {
+//        String hostEmail = JwtTokenProvider.getUserClaim(request.getHeader("token")).getEmail();
 //
 //    }
 

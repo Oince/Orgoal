@@ -52,7 +52,7 @@ public class ParticipateService {
 
     }
 
-    public void acceptMember(int aid, String email) {
+    public void acceptMember(int aid, String applicantEmail, String hostEmail) {
 
     }
 
