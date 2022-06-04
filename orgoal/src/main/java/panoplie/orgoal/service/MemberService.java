@@ -30,7 +30,7 @@ public class MemberService {
         Member member = new Member(signUpForm);
 
         //이미 존재하는 회원이라면 예외 발생
-        if (isDuplicate(member)) {
+        if (isExist(member.getEmail())) {
             throw new DuplicateMemberException("Duplicated");
         }
 
@@ -43,8 +43,8 @@ public class MemberService {
     }
 
     //중복된 회원인지를 판단하는 메소드
-    private boolean isDuplicate(Member member) {
-        Member byEmail = memberRepository.findByEmail(member.getEmail());
+    public boolean isExist(String email) {
+        Member byEmail = memberRepository.findByEmail(email);
         return byEmail != null;
     }
 
@@ -71,6 +71,10 @@ public class MemberService {
 
     public Member getMember(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public Member getMember(int mid) {
+        return memberRepository.findById(mid);
     }
 
 }

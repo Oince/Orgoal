@@ -21,4 +21,8 @@ public interface MemberRepository {
             "where email = #{email}")
     Member findByEmail(String email);
 
+    @Select("Select * from member " +
+            "where mid = #{mid}")
+    Member findById(int mid);
+
 }
