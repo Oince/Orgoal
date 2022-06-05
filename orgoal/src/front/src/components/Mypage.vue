@@ -5,9 +5,9 @@
       <span class="nickname">{{ nickname }}</span
       >님, 반갑습니다!
     </div>
+    <hr />
+    <myactivity />
   </div>
-  <hr />
-  <myactivity />
 </template>
 
 <script>
@@ -38,25 +38,24 @@ export default {
 
 <style scoped>
 .mypage {
-  width: 600px;
+  width: 800px;
   margin: auto;
 }
 .mypage-head {
-  width: 600px;
+  width: 800px;
   margin: 20px 0px 20px 0px;
   text-align: left;
   font-size: 40px;
   font-weight: bolder;
 }
 .mypage-body {
-  width: 600px;
+  width: 800px;
   margin: 20px 0px 20px 0px;
   text-align: left;
   font-size: 25px;
 }
 .nickname {
   margin-right: 5px;
-  font-weight: bold;
-  color: blue;
+  font-weight: bolder;
 }
 </style>

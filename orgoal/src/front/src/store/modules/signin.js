@@ -30,7 +30,7 @@ export const signin = {
       let resultErr = null;
       try {
         // memberInfo = { email: memberId, password: memberPassword }
-        let res = await axios.post("/signin", memberInfo);
+        let res = await axios.post("/api/signin", memberInfo);
         /* 응답 객체 res
           {
             "data": {

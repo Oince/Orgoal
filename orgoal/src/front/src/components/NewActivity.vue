@@ -73,7 +73,7 @@ export default {
         },
       };
       axios
-        .post("/activity", newactivityInfo, config)
+        .post("/api/activity", newactivityInfo, config)
         .then((res) => {
           alert("새 액티비티가 생성되었습니다!");
           this.$router.push("/activity/" + res.data.aid.toString());
@@ -81,13 +81,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // store
-      //   .dispatch("newactivity/createNewActivity", newactivityInfo, token)
-      //   .then(() => {
-      //     // 액티비티 작성 완료 후 작성한 액티비티 화면으로
-      //     newAid = computed(() => store.getters["newactivity/getNewAid"]);
-      //     this.$router.push("/activity/" + newAid.toString());
-      //   });
     };
 
     const doCancel = function () {

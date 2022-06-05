@@ -25,7 +25,7 @@
               <router-link to="/signup"><button>회원가입</button></router-link>
             </div>
             <div v-if="isSignedin">
-              <span>{{ username }}님 </span>
+              <span>{{ nickname }}님 </span>
               <router-link to="/mypage">
                 <button class="mypage">
                   <svg
@@ -62,6 +62,7 @@ export default {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     let isSignedin = computed(() => store.getters["signin/hasToken"]);
+    const nickname = computed(() => store.getters["nickname/getNickname"]);
     isSignedin = true;
     let searchText = "";
     let hasNewAlarm = false;
@@ -94,6 +95,7 @@ export default {
 
     return {
       isSignedin,
+      nickname,
       searchText,
       hasNewAlarm,
       onClickSearchButton,
