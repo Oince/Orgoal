@@ -1,6 +1,6 @@
 <template>
   <navbar />
-  <router-view></router-view>
+  <router-view :key="$route.fullPath"></router-view>
   <br />{{ userString }}
 </template>
 
@@ -45,8 +45,8 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-navbar{
-  position:sticky;
-  top:0;
+navbar {
+  position: sticky;
+  top: 0;
 }
 </style>
