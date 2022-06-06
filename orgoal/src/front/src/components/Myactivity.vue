@@ -40,7 +40,7 @@
             <td class="table-state">
               <span v-if="activity.state == 'R'">모집중</span>
               <span v-if="activity.state == 'P'">진행중</span>
-              <span v-if="activity.state == 'E'">완료</span>
+              <span v-if="activity.state == 'E'">종료</span>
             </td>
             <td class="table-title">
               <router-link v-bind:to="getURLbyActivityID(activity.aid)">{{
@@ -91,7 +91,8 @@
             </td>
             <td class="table-state">
               <!-- api에 따라 수정 필요 -->
-              <span v-if="activity.state == 'W'">진행중</span>
+              <span v-if="activity.state == 'W'">신청 대기</span>
+              <span v-if="activity.state == 'A'">수락 완료</span>
             </td>
             <td class="table-title">
               <router-link v-bind:to="getURLbyActivityID(activity.aid)">{{
@@ -136,26 +137,28 @@ export default {
       // },
     ];
     let joinedActivities = [];
-    let config = {
-      headers: {
-        token: token,
-      },
-    };
-    axios.get("/api/mypage/activity", config).then((response) => {
-      console.log("GET Mypage Activity SUCCESS");
-      response.data.list1.forEach((myActivity) => {
-        myActivities.push(myActivity);
-      });
-      response.data.list2.forEach((joinedActivity) => {
-        joinedActivities.push(joinedActivity);
-      });
-    });
 
     // methods
     function getURLbyActivityID(aid) {
       return "/activity/" + aid.toString();
     }
     return { token, myActivities, joinedActivities, getURLbyActivityID };
+  },
+  created() {
+    let config = {
+      headers: {
+        token: this.token,
+      },
+    };
+    axios.get("/api/mypage/activity", config).then((response) => {
+      console.log("GET Mypage Activity SUCCESS");
+      response.data.list1.forEach((myActivity) => {
+        this.myActivities.push(myActivity);
+      });
+      response.data.list2.forEach((joinedActivity) => {
+        this.joinedActivities.push(joinedActivity);
+      });
+    });
   },
 };
 </script>
