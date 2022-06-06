@@ -143,20 +143,12 @@ export default {
     };
     axios.get("/api/mypage/activity", config).then((response) => {
       console.log("GET Mypage Activity SUCCESS");
-      response.data.list1
-        .forEach((myActivity) => {
-          myActivities.push(myActivity);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      response.data.list2
-        .forEach((joinedActivity) => {
-          joinedActivities.push(joinedActivity);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      response.data.list1.forEach((myActivity) => {
+        myActivities.push(myActivity);
+      });
+      response.data.list2.forEach((joinedActivity) => {
+        joinedActivities.push(joinedActivity);
+      });
     });
 
     // methods
