@@ -57,11 +57,7 @@ export default {
         .then((response) => {
           console.log("Successfully Loaded Activity Detail"); // for Debug
           activityTitle.value = response.data.title;
-          var activityContent = response.data.content;
-          activityContents.value = activityContent.split;
-          activityContent.value.forEach((element) => {
-            element.replaceAll("\n", "");
-          });
+          activityContents.value = response.data.content.split("\n");
           activityHostEmail.value = response.data.email;
           activityHostNickname.value = response.data.nickname;
           activityLastModificationDate.value = response.data.lastModification;
