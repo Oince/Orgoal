@@ -97,9 +97,7 @@ export default {
       nickname,
       searchText,
       hasNewAlarm,
-      nickname,
       onClickSearchButton,
-      doLogout,
     };
   },
 };
