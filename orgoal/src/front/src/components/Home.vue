@@ -1,5 +1,10 @@
 <template>
   <div class="home-container">
+    <div class="new-activity-container">
+      <button class="new-activity" @click="onClickNewActivityButton">
+        신규 액티비티 작성
+      </button>
+    </div>
     <div class="slider">
       <input
         class="slider-radio"
@@ -20,6 +25,7 @@
         >
       </div>
     </div>
+
     <div class="home-contents-container">
       <h1>새로 등록된 액티비티</h1>
     </div>
@@ -27,6 +33,7 @@
 </template>
 <script>
 import { onMounted, onUnmounted } from "vue";
+//import { useRouter } from "vue-router";
 export default {
   name: "HomePage",
   setup: function () {
@@ -38,6 +45,11 @@ export default {
     ];
     var interval = null;
     // methods
+    let onClickNewActivityButton = function () {
+      //let router = useRouter();
+      this.$router.push("newActivity");
+    };
+    // lifecycle hooks
     onMounted(() => {
       console.log("mounted, (interval==null):" + (interval == null));
       setTimeout(() => {
@@ -57,7 +69,7 @@ export default {
       console.log("unMounted, (interval==null):" + (interval == null));
       clearInterval(interval);
     });
-    return { slickSlide, interval };
+    return { slickSlide, interval, onClickNewActivityButton };
   },
 };
 </script>
@@ -65,6 +77,9 @@ export default {
 .home-container {
   margin: 20px auto;
   width: 800px;
+}
+.new-activity-container {
+  margin: 10px;
 }
 .slider {
   width: 800px;
