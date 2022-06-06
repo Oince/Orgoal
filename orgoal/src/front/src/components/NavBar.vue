@@ -61,9 +61,8 @@ export default {
   setup: function () {
     // data
     const store = useStore(); // 훅을 사용하여 vuex store 호출
-    let isSignedin = computed(() => store.getters["signin/hasToken"]);
+    const isSignedin = computed(() => store.getters["signin/hasToken"]);
     const nickname = computed(() => store.getters["nickname/getNickname"]);
-    isSignedin = true;
     let searchText = "";
     let hasNewAlarm = false;
 
@@ -80,12 +79,12 @@ export default {
 
     onMounted(() => {
       const axios = require("axios").default;
-      const URI = "/notification";
+      const URI = "/api/notification";
       axios
         .get(URI, store.state.signin.memberId)
         .then((response) => {
           console.log("get if there is new events"); // for Debug
-          this.hasNewAlarm = response.hasNewEvent;
+          this.hasNewAlarm = response.data.hasNewEvent;
         })
         .catch((error) => {
           console.log(error);
@@ -98,7 +97,9 @@ export default {
       nickname,
       searchText,
       hasNewAlarm,
+      nickname,
       onClickSearchButton,
+      doLogout,
     };
   },
 };
