@@ -54,11 +54,13 @@
 <script>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 export default {
   name: "ActivityList",
   setup: function () {
     const router = useRoute();
     const axios = require("axios").default;
+    const store = useStore();
     // data
     let activityID = "123";
     let activityTitle = ref("동작구 상도동 모각코 그룹 모집"); // 레이아웃 디자인용 placeholder
@@ -87,7 +89,7 @@ export default {
       };
       let config = {
         headers: {
-          token: this.token,
+          token: store.state.signin.token,
         },
       };
       axios.post(URI, applyInfo, config);
