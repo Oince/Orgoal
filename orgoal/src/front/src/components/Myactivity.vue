@@ -6,8 +6,8 @@
         <thead>
           <tr class="table-head">
             <th width="3%"></th>
-            <th width="10%"></th>
-            <th width="87%"></th>
+            <th width="15%"></th>
+            <th width="82%"></th>
           </tr>
         </thead>
         <tbody>
@@ -58,8 +58,8 @@
         <thead>
           <tr class="table-head">
             <th width="3%"></th>
-            <th width="10%"></th>
-            <th width="87%"></th>
+            <th width="15%"></th>
+            <th width="82%"></th>
           </tr>
         </thead>
         <tbody>
@@ -108,6 +108,7 @@
 
 <script>
 import { useStore } from "vuex";
+import { ref } from "vue";
 import axios from "axios";
 
 export default {
@@ -116,27 +117,8 @@ export default {
     // data
     const store = useStore();
     const token = store.state.signin.token;
-    let myActivities = [
-      // {
-      //   notice: true,
-      //   aid: 100,
-      //   state: "r",
-      //   title: "관악구 풋살 동호회 모집",
-      // },
-      // {
-      //   notice: true,
-      //   aid: 101,
-      //   state: "p",
-      //   title: "헬스장 파트너",
-      // },
-      // {
-      //   notice: false,
-      //   aid: 102,
-      //   state: "e",
-      //   title: "분당구 독서토론 모집",
-      // },
-    ];
-    let joinedActivities = [];
+    let myActivities = ref([]);
+    let joinedActivities = ref([]);
 
     // methods
     function getURLbyActivityID(aid) {
