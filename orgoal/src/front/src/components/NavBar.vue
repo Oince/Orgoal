@@ -26,6 +26,9 @@
             </div>
             <div v-if="isSignedin">
               <span>{{ nickname }}님 </span>
+              <button class="button-logout" @click="onClickSignoutButton">
+                로그아웃
+              </button>
               <router-link to="/mypage">
                 <button class="mypage">
                   <svg
@@ -77,6 +80,11 @@ export default {
       console.log(this.searchText);
     };
 
+    let onClickSignoutButton = function () {
+      store.dispatch("signin/doLogout");
+      this.$router.go(0);
+    };
+
     onMounted(() => {
       const axios = require("axios").default;
       const URI = "/api/notification";
@@ -98,6 +106,7 @@ export default {
       searchText,
       hasNewAlarm,
       onClickSearchButton,
+      onClickSignoutButton,
     };
   },
 };
@@ -127,6 +136,9 @@ export default {
 }
 .search {
   height: 40px;
+}
+.button-logout {
+  background: #dfdfdf;
 }
 .mypage {
   position: relative;
