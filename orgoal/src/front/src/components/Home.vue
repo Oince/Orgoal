@@ -32,11 +32,13 @@
   </div>
 </template>
 <script>
-import { onMounted, onUnmounted } from "vue";
-//import { useRouter } from "vue-router";
+import { onMounted, onUnmounted, computed } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "HomePage",
   setup: function () {
+    const store = useStore(); // 훅을 사용하여 vuex store 호출
+    const isSignedin = computed(() => store.getters["signin/hasToken"]);
     // data
     let slickSlide = [
       "https://t1.daumcdn.net/cfile/tistory/2510CF43519356E514",
@@ -47,7 +49,10 @@ export default {
     // methods
     let onClickNewActivityButton = function () {
       //let router = useRouter();
-      this.$router.push("newActivity");
+      if (isSignedin.value) this.$router.push("newActivity");
+      else {
+        this.$router.push("/signin");
+      }
     };
     // lifecycle hooks
     onMounted(() => {
