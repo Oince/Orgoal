@@ -73,11 +73,11 @@ Create table activity (
   - **/search 완료**
   - **/nickname 완료**
   - **/mypage/info 완료**
-  - /mypage/activity
+  - **/mypage/activity 완료**
   - **/activity 완료**
     - **/activity/{id} 완료**
     - **/activity/{id}/list 완료**
-    - /activity/{id}/accept?
+    - **/activity/{id}/accept? 완료**
   - /notification/info
 
 ### POST /api/signup
@@ -202,7 +202,7 @@ email 쿼리 스트링 사용
   - 로그인 토큰
 - res
   - 성공시 201
-  - 실패시 미정
+  - 실패시 400
 
 ### GET /api/notification/info
 알림센터 정보를 가져오는 API
