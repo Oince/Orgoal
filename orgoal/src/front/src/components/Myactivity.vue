@@ -28,7 +28,7 @@
                 <g
                   transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)"
                   stroke="none"
-                  :class="[activity.notice ? 'red-dot' : 'gray-dot']"
+                  :class="[false ? 'red-dot' : 'gray-dot']"
                 >
                   <path
                     d="M160 467 c-49 -16 -133 -102 -148 -153 -28 -94 -8 -169 63 -239 102
@@ -80,7 +80,7 @@
                 <g
                   transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)"
                   stroke="none"
-                  :class="[activity.notice ? 'red-dot' : 'gray-dot']"
+                  :class="[false ? 'red-dot' : 'gray-dot']"
                 >
                   <path
                     d="M160 467 c-49 -16 -133 -102 -148 -153 -28 -94 -8 -169 63 -239 102
@@ -107,7 +107,7 @@
 
 <script>
 import { useStore } from "vuex";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "MyActivity",
@@ -136,91 +136,26 @@ export default {
       // },
     ];
     let joinedActivities = [];
-    // let config = {
-    //   headers: {
-    //     token: this.token,
-    //   },
-    // };
-    // axios.get("/api/mypage/activity", config).then((response) => {
-    //   console.log("GET Mypage Activity SUCCESS");
-    //   response.data.list1
-    //     .forEach((myActivity) => {
-    //       myActivities.push(myActivity);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    //   response.data.list2
-    //     .forEach((joinedActivity) => {
-    //       joinedActivities.push(joinedActivity);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // });
+    let config = {
+      headers: {
+        token: token,
+      },
+    };
+    axios.get("/api/mypage/activity", config).then((response) => {
+      console.log("GET Mypage Activity SUCCESS");
+      response.data.list1.forEach((myActivity) => {
+        myActivities.push(myActivity);
+      });
+      response.data.list2.forEach((joinedActivity) => {
+        joinedActivities.push(joinedActivity);
+      });
+    });
 
     // methods
     function getURLbyActivityID(aid) {
       return "/activity/" + aid.toString();
     }
     return { token, myActivities, joinedActivities, getURLbyActivityID };
-  },
-  created() {
-    let data = {
-      list1: [
-        {
-          notice: true,
-          aid: 21,
-          title: "모각코 모집",
-          state: "R",
-        },
-        {
-          notice: false,
-          aid: 43,
-          title: "주말마다 같이 요리할 사람",
-          state: "R",
-        },
-        {
-          notice: true,
-          aid: 61,
-          title: "축구 모임",
-          state: "R",
-        },
-        {
-          notice: true,
-          aid: 143,
-          title: "발탄 잡으러 갈사람",
-          state: "R",
-        },
-        {
-          notice: false,
-          aid: 121,
-          title: "축구",
-          state: "R",
-        },
-      ],
-      list2: [
-        {
-          notice: true,
-          aid: 43,
-          title: "주말마다 같이 요리할 사람",
-          state: "W",
-        },
-        {
-          notice: false,
-          aid: 161,
-          title: "카양겔 하드2 트팟",
-          state: "W",
-        },
-      ],
-    };
-
-    data.list1.forEach((myActivity) => {
-      this.myActivities.push(myActivity);
-    });
-    data.list2.forEach((joinedActivity) => {
-      this.joinedActivities.push(joinedActivity);
-    });
   },
 };
 </script>
