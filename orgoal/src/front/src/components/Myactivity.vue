@@ -138,7 +138,7 @@ export default {
     let joinedActivities = [];
     let config = {
       headers: {
-        token: this.token,
+        token: token,
       },
     };
     axios.get("/api/mypage/activity", config).then((response) => {
@@ -164,51 +164,6 @@ export default {
       return "/activity/" + aid.toString();
     }
     return { token, myActivities, joinedActivities, getURLbyActivityID };
-  },
-  created() {
-    let data = {
-      list1: [
-        {
-          notice: false,
-          aid: 43,
-          title: "주말마다 같이 요리할 사람",
-          state: "R",
-        },
-        {
-          notice: true,
-          aid: 61,
-          title: "축구 모임",
-          state: "R",
-        },
-        {
-          notice: true,
-          aid: 143,
-          title: "발탄 잡으러 갈사람",
-          state: "R",
-        },
-      ],
-      list2: [
-        {
-          notice: true,
-          aid: 43,
-          title: "주말마다 같이 요리할 사람",
-          state: "W",
-        },
-        {
-          notice: false,
-          aid: 161,
-          title: "카양겔 하드2 트팟",
-          state: "W",
-        },
-      ],
-    };
-
-    data.list1.forEach((myActivity) => {
-      this.myActivities.push(myActivity);
-    });
-    data.list2.forEach((joinedActivity) => {
-      this.joinedActivities.push(joinedActivity);
-    });
   },
 };
 </script>
