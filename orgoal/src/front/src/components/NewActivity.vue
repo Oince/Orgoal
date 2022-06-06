@@ -81,13 +81,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // store
-      //   .dispatch("newactivity/createNewActivity", newactivityInfo, token)
-      //   .then(() => {
-      //     // 액티비티 작성 완료 후 작성한 액티비티 화면으로
-      //     newAid = computed(() => store.getters["newactivity/getNewAid"]);
-      //     this.$router.push("/activity/" + newAid.toString());
-      //   });
     };
 
     const doCancel = function () {

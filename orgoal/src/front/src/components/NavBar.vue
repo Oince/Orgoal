@@ -2,8 +2,7 @@
   <div class="navbar">
     <div class="desktop_container">
       <div class="content">
-        <router-link to="/">
-          <span class="logo">로고</span>
+        <router-link to="/" class="logo">
           <span>ORGOAL</span>
         </router-link>
         <div class="navbar-menu">
@@ -22,15 +21,11 @@
           <div class="navbar-right">
             <!--로그인 여부에 따라 조건부 렌더링-->
             <div v-if="!isSignedin">
-              <router-link to="/signin"
-                ><button class="navbar-button">로그인</button></router-link
-              >
-              <router-link to="/signup"
-                ><button class="navbar-button">회원가입</button></router-link
-              >
+              <router-link to="/signin"><button>로그인</button></router-link>
+              <router-link to="/signup"><button>회원가입</button></router-link>
             </div>
             <div v-if="isSignedin">
-              <span>{{ username }}님 </span>
+              <span>{{ nickname }}님 </span>
               <router-link to="/mypage">
                 <button class="mypage">
                   <svg
@@ -72,17 +67,6 @@ export default {
     let hasNewAlarm = false;
 
     //methods
-    const doLogout = function () {
-      store
-        .dispatch("signin/doLogout")
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
     let onClickSearchButton = function () {
       if (this.searchText == "") {
         alert("검색어를 입력하세요");
@@ -110,6 +94,7 @@ export default {
 
     return {
       isSignedin,
+      nickname,
       searchText,
       hasNewAlarm,
       nickname,
@@ -127,7 +112,7 @@ export default {
 }
 .content {
   display: flex;
-  width: 1280px;
+  width: 800px;
   margin: 0 auto;
   justify-content: space-between;
   padding: 1em 0;

@@ -57,7 +57,6 @@ export default {
       console.log("unMounted, (interval==null):" + (interval == null));
       clearInterval(interval);
     });
-
     return { slickSlide, interval };
   },
 };

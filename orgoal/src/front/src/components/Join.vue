@@ -63,7 +63,7 @@ export default {
     };
 
     const doCancel = function () {
-      this.$router.push("../");
+      this.$router.push("/activity/" + this.aid.toString());
     };
     return { token, aid, answer, joinActivity, doCancel };
   },
