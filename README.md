@@ -1,9 +1,8 @@
 # Orgoal 
 **수정사항**
 
-- GET /activity/{id} 에 nickname 추가
-- api 경로 수정
-  - 경로 앞에 /api 추가
+- GET /api/activity/{id}/member 추가
+- GET /api/activity/{id} 에서 mid 대신에 이메일로 바꿈
 
 
 프론트 작업은 orgoal/src/front에서 해주시고  
@@ -78,7 +77,7 @@ Create table activity (
     - **/activity/{id} 완료**
     - **/activity/{id}/list 완료**
     - **/activity/{id}/accept? 완료**
-  - /notification/info
+    - **/activity/{id}/member 완료**
 
 ### POST /api/signup
 회원가입 API
@@ -167,7 +166,7 @@ mypage 액티비티 정보 API
   - title 액티비티 제목
   - content 액티비티 본문
   - state 액티비티 상태
-  - mid   작성자 id
+  - email 작성자 이메일id
   - nickname 작성자 닉네임
   - lastModification 작성 날짜
   - 성공시 200
@@ -204,10 +203,12 @@ email 쿼리 스트링 사용
   - 성공시 201
   - 실패시 400
 
-### GET /api/notification/info
-알림센터 정보를 가져오는 API
-- req
+### GET /api/activity/{id}/member
+
+해당 액티비티 참가자를 가져오는 API
+
+- req 
   - 로그인 토큰
 - res
-  - state 신청 수락 or 요청
-  - aid   해당 액티비티 id
+  - email 참가자 이메일
+  - nickname 참가자 닉네임

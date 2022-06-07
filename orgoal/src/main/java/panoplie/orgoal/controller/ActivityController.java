@@ -80,7 +80,7 @@ public class ActivityController {
         jsonObject.put("title", activity.getTitle());
         jsonObject.put("content", activity.getContent());
         jsonObject.put("state", activity.getState());
-        jsonObject.put("mid", activity.getMid());
+        jsonObject.put("email", member.getEmail());
         jsonObject.put("nickname", member.getNickname());
         jsonObject.put("lastModification", activity.getLastModification());
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);
@@ -126,6 +126,13 @@ public class ActivityController {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(applicants, HttpStatus.OK);
+    }
+
+    //해당 액티비티 참가자 목록
+    @GetMapping("/{aid}/member")
+    public ResponseEntity getParticipant(@PathVariable int aid) {
+        List<Applicant> acceptList = participateService.getAcceptList(aid);
+        return new ResponseEntity<>(acceptList, HttpStatus.OK);
     }
 
     //해당 액티비티에 신청한 신청자를 수락함, 해당 액티비티 aid, 수락할 이용자의 emall, 토큰을 받음
