@@ -9,8 +9,8 @@
             <span v-if="activity.state == 'P'">진행중</span>
             <span v-if="activity.state == 'E'">완료</span>
           </div>
-          <div class="activity-title">
-            <router-link v-bind:to="getURLbyActivityID(activity.aid)">{{
+          <div class="activity-title-container">
+            <router-link v-bind:to="getURLbyActivityID(activity.aid)" class="activity-title">{{
               activity.title
             }}</router-link>
           </div>
@@ -78,17 +78,11 @@ export default {
             if(props.list_count_max != undefined && props.list_count_max > 0)
             {
               activities.value = activities.value.splice(0, props.list_count_max);
-              console.log(activities.value);
             }
           });
         })
         .catch((error) => {
           console.log(error);
-          if(props.list_count_max != undefined && props.list_count_max > 0)
-            {
-              activities.value = activities.value.splice(0, props.list_count_max);
-              console.log(activities.value);
-            }
         });
     });
     return { activities, getURLbyActivityID };
@@ -123,13 +117,18 @@ li {
   display: inline-block;
   line-height: 42px;
 }
-.activity-title {
+.activity-title-container {
   display: inline-block;
   width: auto;
   flex: 1;
   margin: 0px 20px;
   text-align: left;
+}
+.activity-title{
+  text-decoration: none;
+  color: #404040;
   font-size: 16pt;
   font-family: sans-serif;
+  font-weight: 600;
 }
 </style>
