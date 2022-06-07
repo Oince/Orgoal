@@ -82,7 +82,7 @@ export default {
 
     let onClickSignoutButton = function () {
       store.dispatch("signin/doLogout");
-      this.$router.go(0);
+      this.$router.push(this.$router.fullPath);
     };
 
     onMounted(() => {
