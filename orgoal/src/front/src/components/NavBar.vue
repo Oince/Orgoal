@@ -78,7 +78,7 @@ export default {
         return;
       }
       // TODO : 쿼리문 외에 태그를 사용한 검색도 구현하기
-      this.$router.push({ name: "search", query: { query: this.searchText } });
+      this.$router.push({ path: "/"});
       console.log(this.searchText);
     };
 
