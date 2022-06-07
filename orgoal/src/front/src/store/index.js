@@ -9,7 +9,7 @@ export default createStore({
   modules: { signin, nickname }, // 필요한 경우 여기에 모듈 추가하기
   plugins: [
     createPersistedState(
-      { paths: ['signin'], }
+      { paths: ['signin', 'nickname'], }  // localStorage로 관리될 모듈 목록
     ),
   ]
 });
