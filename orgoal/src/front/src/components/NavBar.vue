@@ -22,7 +22,7 @@
             <!--로그인 여부에 따라 조건부 렌더링-->
             <div v-if="!isSignedin">
               <router-link to="/signin"><button>로그인</button></router-link>
-              <router-link to="/signup"><button>회원가입</button></router-link>
+              <router-link to="/signup"><button class="blue">회원가입</button></router-link>
             </div>
             <div v-if="isSignedin">
               <span>{{ nickname }}님 </span>
@@ -113,6 +113,7 @@ export default {
 </script>
 
 <style scoped>
+
 .desktop_container {
   background-color: aliceblue;
   height: 70px;
@@ -162,5 +163,26 @@ export default {
   height: 7px;
   background: red;
   border-radius: 4px;
+}
+button {
+  overflow: visible;
+  cursor: pointer;
+  min-width: 75px;
+  height: 32px;
+  margin: 0 2px;
+  padding: 0 15px;
+  line-height: 32px;
+  font-size: 14px;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  border-radius: 10px;
+}
+button.blue {
+  color: #fff;
+  border-color: #0099d2 !important;
+  background: #0099d2 !important;
+}
+.search-button {
+  min-width: 50px;
 }
 </style>

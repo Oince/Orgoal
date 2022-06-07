@@ -28,7 +28,8 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 export default {
   name: "ActivityList",
-  setup: function () {
+  props: ["list_count_max"],
+  setup: function (props) {
     // data
     let activities = ref([
       // TODO : 서버와의 통신 잘 되는 것 확인하면 테스트용 데이터 주석처리하기
@@ -55,7 +56,6 @@ export default {
       const axios = require("axios").default;
       const route = useRoute();
       let query = route.query.query;
-      console.log(query);
       if (query === undefined) query = "";
       const URI = "/api/search?" + "query=" + query;
 
@@ -74,10 +74,21 @@ export default {
             activity.lastModification = `${year}-${month}-${date}`;
             console.log(activity.lastModification);
             activities.value.push(activity);
+
+            if(props.list_count_max != undefined && props.list_count_max > 0)
+            {
+              activities.value = activities.value.splice(0, props.list_count_max);
+              console.log(activities.value);
+            }
           });
         })
         .catch((error) => {
           console.log(error);
+          if(props.list_count_max != undefined && props.list_count_max > 0)
+            {
+              activities.value = activities.value.splice(0, props.list_count_max);
+              console.log(activities.value);
+            }
         });
     });
     return { activities, getURLbyActivityID };

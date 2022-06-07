@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="new-activity-container">
-      <button class="new-activity" @click="onClickNewActivityButton">
+      <button class="new-activity blue" @click="onClickNewActivityButton">
         신규 액티비티 작성
       </button>
     </div>
@@ -28,14 +28,20 @@
 
     <div class="home-contents-container">
       <h1>새로 등록된 액티비티</h1>
+      <activitylist :list_count_max="5"/>
     </div>
   </div>
 </template>
 <script>
 import { onMounted, onUnmounted, computed } from "vue";
 import { useStore } from "vuex";
+import activitylist from "./ActivityList.vue";
+
 export default {
   name: "HomePage",
+  components: {
+    activitylist,
+  },
   setup: function () {
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
@@ -82,10 +88,37 @@ export default {
 .home-container {
   margin: 20px auto;
   width: 800px;
+  position: relative;
 }
 .new-activity-container {
   margin: 10px;
+  height: 30px;
+  width: 100%;
 }
+.new-activity {
+  position:absolute;
+  right: 0px;
+}
+button {
+  overflow: visible;
+  cursor: pointer;
+  min-width: 125px;
+  height: 32px;
+  margin: 0 2px;
+  padding: 0 15px;
+  line-height: 32px;
+  font-size: 14px;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  border-radius: 10px;
+}
+button.blue {
+  color: #fff;
+  border-color: #0099d2 !important;
+  background: #0099d2 !important;
+}
+
+
 .slider {
   width: 800px;
   height: 300px;
