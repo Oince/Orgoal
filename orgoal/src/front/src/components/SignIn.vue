@@ -64,6 +64,7 @@ export default {
       store
         .dispatch("signin/doSignin", memberInfo)
         .then(() => {
+          store.commit("signin/setEmail", this.email);
           // 로그인 성공 시 닉네임 받아와서 nickname 모듈에 저장
           console.log(store.state.signin.token);
           store
