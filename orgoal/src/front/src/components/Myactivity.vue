@@ -207,9 +207,10 @@ export default {
 
             // 받아온 정보 종합하여 push
             myActivities.value.push(temp);
-            console.log("this is myactivity object");
-            console.log(temp);
           });
+
+          console.log("this is myactivity object");
+          console.log(myActivities);
 
           // 참여 액티비티 리스트
           response.data.list2.forEach((activity) => {
@@ -226,9 +227,10 @@ export default {
 
             // 받아온 정보 종합하여 push
             joinedActivities.value.push(temp2);
-            console.log("this is joinedactivity object");
-            console.log(temp2);
           });
+
+          console.log("this is joinedactivity object");
+          console.log(joinedActivities);
 
           this.$forceUpdate(); // 강제적으로 화면 재렌더링
         })
