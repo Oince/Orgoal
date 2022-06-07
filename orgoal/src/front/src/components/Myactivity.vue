@@ -74,7 +74,7 @@
                     <td class="table-button">
                       <button
                         class="accept-button"
-                        @click="doAccept(activity.id)"
+                        @click="doAccept(activity.aid)"
                       >
                         수락
                       </button>
@@ -178,7 +178,8 @@ export default {
           token: token,
         },
       };
-      axios.get("/api/mypage/activity", config)
+      axios
+        .get("/api/mypage/activity", config)
         .then((response) => {
           console.log("GET Mypage Activity SUCCESS");
 
@@ -188,11 +189,14 @@ export default {
             let temp = activity;
             // 참여자 받아오기
             axios
-              .get("/api/activity/" + activity.aid.toString() + "/member", config)
+              .get(
+                "/api/activity/" + activity.aid.toString() + "/member",
+                config
+              )
               .then((response1) => {
                 temp.member = response1.data;
               })
-              .catch((err) =>{
+              .catch((err) => {
                 console.log(err);
               });
             // 신청자 받아오기
@@ -219,7 +223,10 @@ export default {
             // 참여자 받아오기
             if (activity.state == "A") {
               axios
-                .get("/api/activity/" + activity.aid.toString() + "/member", config)
+                .get(
+                  "/api/activity/" + activity.aid.toString() + "/member",
+                  config
+                )
                 .then((response1) => {
                   temp2.member = response1.data;
                 });
@@ -248,7 +255,6 @@ export default {
       doAccept,
     };
   },
-  
 };
 </script>
 
