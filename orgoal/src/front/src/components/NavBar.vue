@@ -3,7 +3,7 @@
     <div class="desktop_container">
       <div class="content">
         <router-link to="/" class="logo">
-          <span>ORGOAL</span>
+          <img src="../../public/logo.png">
         </router-link>
         <div class="navbar-menu">
           <div class="navbar-left">
@@ -122,8 +122,9 @@ export default {
   display: flex;
   width: 800px;
   margin: 0 auto;
+  padding: 10px 0;
   justify-content: space-between;
-  padding: 1em 0;
+  align-items: center;
 }
 .logo {
   flex: 0 0 200px;
