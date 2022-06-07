@@ -2,10 +2,16 @@
 import { createStore } from "vuex";
 import { signin } from "@/store/modules/signin";
 import { nickname } from "@/store/modules/nickname";
+import createPersistedState from "vuex-persistedstate"
 
 // vuex storage
 export default createStore({
   modules: { signin, nickname }, // 필요한 경우 여기에 모듈 추가하기
+  plugins: [
+    createPersistedState(
+      { paths: ['signin'], }
+    ),
+  ]
 });
 
 // state     state.moduleName.stateName
