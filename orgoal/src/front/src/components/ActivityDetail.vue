@@ -31,8 +31,9 @@
   </div>
   <div v-if="showApplyForm" class="activity-apply-form-container">
     <div class="activity-apply-form">
+      <h2>참가 신청</h2>
       <p>
-        <label for="commentInput">코멘트</label>
+        <!--<label for="commentInput"></label>-->
         <textarea
           type="text"
           id="commentInput"
@@ -92,8 +93,22 @@ export default {
           token: store.state.signin.token,
         },
       };
-      axios.post(URI, applyInfo, config);
+      axios
+        .post(URI, applyInfo, config)
+        .then((res) => {
+          console.log(res);
+          window.alert("액티비티 참가 신청되었습니다!");
+          router.go(); // 새로고침
+        })
+        .catch((err) => {
+          console.log(err);
+          window.alert("오류가 발생했습니다.\n나중에 다시 시도해주세요");
+        });
     };
+    let doCancel = function() {
+      applyComment.value = "";
+      showApplyForm.value = false;
+    }
 
     // lifecycle hook
     onMounted(() => {
@@ -129,6 +144,7 @@ export default {
       applyComment,
       onClickApplyButton,
       doApply,
+      doCancel,
     };
   },
 };
@@ -177,10 +193,34 @@ export default {
   justify-content: space-around;
   min-height: 200px;
 }
+
+.activity-apply-form-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: #00000080;
+}
+.activity-apply-form {
+  position:relative;
+  background-color: #dfdfdf;
+  width: 600px;
+  height: 300px;
+  margin: 100px auto;
+  border-radius: 8px;
+  padding: 30px 0;
+}
+#commentInput{
+  width: 400px;
+}
 .buttons {
-  position: relative;
+  position: absolute;
   height: 32px;
+  width: 100%;
   margin-top: 20px;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
 }
 .buttons > .button {
   overflow: visible;
