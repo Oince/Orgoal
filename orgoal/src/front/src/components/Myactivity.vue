@@ -173,7 +173,6 @@ export default {
 
     // lifecycle hook
     onMounted(() => {
-      console.log("hi");
       let config = {
         headers: {
           token: token,
@@ -192,12 +191,18 @@ export default {
               .get("/api/activity/" + activity.aid.toString() + "/member", config)
               .then((response1) => {
                 temp.member = response1.data;
+              })
+              .catch((err) =>{
+                console.log(err);
               });
             // 신청자 받아오기
             axios
               .get("/api/activity/" + activity.aid.toString() + "/list", config)
               .then((response2) => {
                 temp.apply = response2.data;
+              })
+              .catch((err) => {
+                console.log(err);
               });
 
             // 받아온 정보 종합하여 push
@@ -224,6 +229,8 @@ export default {
             console.log("this is joinedactivity object");
             console.log(temp2);
           });
+
+          this.$forceUpdate(); // 강제적으로 화면 재렌더링
         })
         .catch((err) => {
           console.log(err);
