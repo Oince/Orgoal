@@ -158,7 +158,7 @@ export default {
     function doAccept(aid) {
       let config = {
         headers: {
-          token: this.token,
+          token: token,
         },
       };
       let URI =
@@ -176,7 +176,7 @@ export default {
       console.log("hi");
       let config = {
         headers: {
-          token: this.token,
+          token: token,
         },
       };
       axios.get("/api/mypage/activity", config)
