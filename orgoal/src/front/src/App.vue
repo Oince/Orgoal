@@ -21,7 +21,7 @@ export default {
 
     // methods
     let goHome = function() {
-      this.$route.push({path: '/'});
+      this.$router.push({path: '/'});
     }
 
     return { goHome };
