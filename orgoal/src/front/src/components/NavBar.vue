@@ -56,7 +56,6 @@
 
 <script>
 import { computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -67,7 +66,6 @@ export default {
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
     const nickname = computed(() => store.getters["nickname/getNickname"]);
-    const router = useRoute();
     let searchText = "";
     let hasNewAlarm = false;
 
@@ -78,13 +76,13 @@ export default {
         return;
       }
       // TODO : 쿼리문 외에 태그를 사용한 검색도 구현하기
-      this.$router.push({ path: "/"});
+      this.$router.push({ name: "search", query: { query: this.searchText } });
       console.log(this.searchText);
     };
 
     let onClickSignoutButton = function () {
       store.dispatch("signin/doLogout");
-      this.$router.push({path: router.fullPath});
+      this.$parent.goHome();
     };
 
     onMounted(() => {

@@ -1,12 +1,9 @@
 <template>
   <navbar />
   <router-view :key="$route.fullPath"></router-view>
-  <br />{{ userString }}
 </template>
 
 <script>
-// import { computed } from "vue"; // computed 속성 사용을 위해 필요
-// import { useStore } from "vuex"; // vuex 스토리지 사용
 import navbar from "./components/NavBar.vue";
 
 export default {
@@ -19,18 +16,16 @@ export default {
       return this.$store.getters.getMsg;
     },
   },
-  // setup: function () {
-  //   // data
-  //   const store = useStore();
-  //   const username = store.state.User.username;
+  setup: function () {
+    // data
 
-  //   // computed
-  //   const userString = computed(() => store.state.User.username + "님"); // 테스트용
+    // methods
+    let goHome = function() {
+      this.$route.push({path: '/'});
+    }
 
-  //   // methods
-
-  //   return { username, userString };
-  // },
+    return { goHome };
+  },
 };
 </script>
 
