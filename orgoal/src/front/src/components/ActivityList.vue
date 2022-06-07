@@ -35,15 +35,15 @@ export default {
       // TODO : 서버와의 통신 잘 되는 것 확인하면 테스트용 데이터 주석처리하기
       {
         aid: 111,
-        status: "r", //'Recruit', 'Proceeding', 'End'
+        state: "R", //'Recruit', 'Proceeding', 'End'
         title: "(테스트) 상도동 모각코 그룹 모집",
-        date: "2022-05-11",
+        lastModification: "2022-05-11",
       },
       {
         aid: 222,
-        status: "p",
+        state: "P",
         title: "(테스트) 숭실대 축제 같이 갈 사람 모집합니다",
-        date: "2022-05-09",
+        lastModification: "2022-05-09",
       },
     ]);
     // methods
