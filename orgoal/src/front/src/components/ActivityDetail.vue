@@ -98,11 +98,12 @@ export default {
         .then((res) => {
           console.log(res);
           window.alert("액티비티 참가 신청되었습니다!");
-          this.$router.push(this.$router.fullPath); // 새로고침
+          this.$router.push({path: router.fullPath}); // 새로고침
         })
         .catch((err) => {
           console.log(err);
           window.alert("오류가 발생했습니다.\n나중에 다시 시도해주세요");
+          console.log(`/activity/${router.params.id}`);
         });
     };
     let doCancel = function() {

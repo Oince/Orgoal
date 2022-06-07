@@ -56,6 +56,7 @@
 
 <script>
 import { computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -66,6 +67,7 @@ export default {
     const store = useStore(); // 훅을 사용하여 vuex store 호출
     const isSignedin = computed(() => store.getters["signin/hasToken"]);
     const nickname = computed(() => store.getters["nickname/getNickname"]);
+    const router = useRoute();
     let searchText = "";
     let hasNewAlarm = false;
 
@@ -82,7 +84,7 @@ export default {
 
     let onClickSignoutButton = function () {
       store.dispatch("signin/doLogout");
-      this.$router.push(this.$router.fullPath);
+      this.$router.push({path: router.fullPath});
     };
 
     onMounted(() => {
