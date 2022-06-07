@@ -78,17 +78,11 @@ export default {
             if(props.list_count_max != undefined && props.list_count_max > 0)
             {
               activities.value = activities.value.splice(0, props.list_count_max);
-              console.log(activities.value);
             }
           });
         })
         .catch((error) => {
           console.log(error);
-          if(props.list_count_max != undefined && props.list_count_max > 0)
-            {
-              activities.value = activities.value.splice(0, props.list_count_max);
-              console.log(activities.value);
-            }
         });
     });
     return { activities, getURLbyActivityID };
