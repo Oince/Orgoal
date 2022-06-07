@@ -138,7 +138,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, onMounted } from "vue";
+import { getCurrentInstance, ref, onMounted } from "vue";
 import axios from "axios";
 
 export default {
@@ -170,6 +170,12 @@ export default {
         })
         .catch((err) => console.log(err));
     }
+    function updatePage() {
+      console.log("화면 재랜더링");
+      this.$forceUpdate();
+    }
+
+    const instance = getCurrentInstance();
 
     // lifecycle hook
     onMounted(() => {
@@ -232,7 +238,7 @@ export default {
           console.log("this is joinedactivity object");
           console.log(joinedActivities);
 
-          this.$forceUpdate(); // 강제적으로 화면 재렌더링
+          instance.ctx.updatePage(); // 강제적으로 화면 재렌더링
         })
         .catch((err) => {
           console.log(err);
@@ -246,6 +252,7 @@ export default {
       joinedActivities,
       getURLbyActivityID,
       doAccept,
+      updatePage,
     };
   },
   
