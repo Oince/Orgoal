@@ -152,6 +152,7 @@ export default {
   height: 40px;
   border-radius: 50%;
   border: 1px solid #dfdfdf;
+  padding: 0;
 }
 .mypage:hover {
   background-color: #dfdfdf;
