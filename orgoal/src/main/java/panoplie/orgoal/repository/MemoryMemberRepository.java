@@ -2,9 +2,7 @@ package panoplie.orgoal.repository;
 
 import panoplie.orgoal.domain.Member;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 //테스트용 메모리DB
@@ -28,6 +26,11 @@ public class MemoryMemberRepository implements MemberRepository{
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public Member findById(int mid) {
         return null;
     }
 

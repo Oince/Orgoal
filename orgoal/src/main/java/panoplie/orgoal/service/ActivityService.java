@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import panoplie.orgoal.domain.Activity;
 import panoplie.orgoal.domain.ActivityForm;
 import panoplie.orgoal.domain.Member;
+import panoplie.orgoal.domain.ParticipatingActivity;
 import panoplie.orgoal.repository.ActivityRepository;
 
 import java.util.Date;
@@ -51,4 +52,7 @@ public class ActivityService {
         return activityRepository.findAll();
     }
 
+    public List<ParticipatingActivity> getActivityList(int mid) {
+        return activityRepository.findByMid(mid);
+    }
 }

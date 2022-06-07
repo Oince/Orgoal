@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Member;
 
-import java.util.List;
-
 @Repository
 //DB의 member 테이블에 접근
 public interface MemberRepository {
@@ -20,5 +18,9 @@ public interface MemberRepository {
     @Select("Select * from member " +
             "where email = #{email}")
     Member findByEmail(String email);
+
+    @Select("Select * from member " +
+            "where mid = #{mid}")
+    Member findById(int mid);
 
 }

@@ -1,6 +1,7 @@
 package panoplie.orgoal.repository;
 
 import panoplie.orgoal.domain.Activity;
+import panoplie.orgoal.domain.ParticipatingActivity;
 
 import java.util.*;
 
@@ -34,6 +35,18 @@ public class MemoryActivityRepository implements ActivityRepository {
     public void save(Activity activity) {
         activity.setAid(++aid);
         store.put(activity.getAid(), activity);
+    }
+
+    @Override
+    public List<ParticipatingActivity> findByMid(int mid) {
+        List<ParticipatingActivity> list = new ArrayList<>();
+        for (Activity value : store.values()) {
+            if (value.getMid() == mid) {
+                ParticipatingActivity activity = new ParticipatingActivity(value.getAid(), value.getTitle(), value.getState());
+                list.add(activity);
+            }
+        }
+        return list;
     }
 
     public static void clearStore() {

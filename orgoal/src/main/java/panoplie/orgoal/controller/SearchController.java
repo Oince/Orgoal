@@ -12,7 +12,7 @@ import panoplie.orgoal.service.ActivityService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 public class SearchController {
 
     private final ActivityService activityService;

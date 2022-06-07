@@ -1,8 +1,9 @@
 # Orgoal 
 **수정사항**
 
-- 토큰에 mid 값 추가
-- /search 검색 실패시 202코드
+- GET /api/activity/{id}/member 추가
+- GET /api/activity/{id} 에서 mid 대신에 이메일로 바꿈
+
 
 프론트 작업은 orgoal/src/front에서 해주시고  
 빌드 결과물은 orgoal/src/main/recources/static 에 출력해주세요  
@@ -65,20 +66,20 @@ Create table activity (
 ## API
 
 ### 개요
-- /
+- /api
   - **/signup 완료**
   - **/signin 완료**
   - **/search 완료**
   - **/nickname 완료**
   - **/mypage/info 완료**
-  - /mypage/activity
+  - **/mypage/activity 완료**
   - **/activity 완료**
     - **/activity/{id} 완료**
-    - /activity/{id}/list
-    - /activity/{id}/accept?
-  - /notification/info
+    - **/activity/{id}/list 완료**
+    - **/activity/{id}/accept? 완료**
+    - **/activity/{id}/member 완료**
 
-### POST /signup
+### POST /api/signup
 회원가입 API
 - req
   - email 이메일id
@@ -90,7 +91,7 @@ Create table activity (
   - 성공시 201
   - 실패시 409
 
-### POST /signin
+### POST /api/signin
 로그인 API
 - req
   - email 이메일 id
@@ -101,7 +102,7 @@ Create table activity (
   - 실패시 401
   
 
-### GET /search?query=""
+### GET /api/search?query=""
 액티비티 검색 API  
 쿼리 스트링 tag, query 사용  
 query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로 보내줌
@@ -117,7 +118,7 @@ query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로
   - 성공시 200
   - 검색 결과가 없으면 전체 리스트 최신순으로 보냄 코드 202
 
-### GET /nickname
+### GET /api/nickname
 
 이메일에 해당하는 유저의 닉네임을 가져오는 API  
 
@@ -127,7 +128,7 @@ query에 해당하는 결과가 없으면 전체 액티비티를 최신순으로
   - nickname 해당 유저의 닉네임
 
 
-### GET /mypage/info
+### GET /api/mypage/info
 mypage 정보 API
 - req
   - 로그인 토큰
@@ -136,7 +137,7 @@ mypage 정보 API
   - 성공시 200
   - 실패시 401 or 404
 
-### GET /mypage/activity
+### GET /api/mypage/activity
 mypage 액티비티 정보 API
 - req
   - 로그인 토큰
@@ -145,7 +146,7 @@ mypage 액티비티 정보 API
   - title   액티비티 제목
   - state   액티비티 상태
 
-### POST /activity
+### POST /api/activity
 액티비티 등록 API
 - req
   - 로그인 토큰
@@ -156,7 +157,7 @@ mypage 액티비티 정보 API
   - 성공시 201 코드
   - 실패시 401 또는 404
 
-### GET /activity/{id}
+### GET /api/activity/{id}
 액티비티 관련 정보를 가져오는 API
 - req
   - 로그인 토큰
@@ -165,13 +166,14 @@ mypage 액티비티 정보 API
   - title 액티비티 제목
   - content 액티비티 본문
   - state 액티비티 상태
-  - mid   작성자 id
+  - email 작성자 이메일id
+  - nickname 작성자 닉네임
   - lastModification 작성 날짜
   - 성공시 200
   - 실패시 404
   
 
-### POST /activity/{id}
+### POST /api/activity/{id}
 액티비티 신청 API  
 - req
   - 로그인 토큰
@@ -180,7 +182,7 @@ mypage 액티비티 정보 API
   - 성공시 201
   - 실패시 404 or 409
 
-### GET /activity/{id}/list
+### GET /api/activity/{id}/list
 해당 액티비티의 신청자를 가져오는 API  
 로그인 토큰을 통해 액티비티 게시자만 접근 가능
 
@@ -191,7 +193,7 @@ mypage 액티비티 정보 API
   - nickname 신청자 닉네임
   - answer 신청자의 질문 내용
 
-### POST /activity/{id}/accept?email=""
+### POST /api/activity/{id}/accept?email=""
 해당 액티비티 신청자의 신청을 수락하는 API  
 email 쿼리 스트링 사용
 
@@ -199,12 +201,14 @@ email 쿼리 스트링 사용
   - 로그인 토큰
 - res
   - 성공시 201
-  - 실패시 미정
+  - 실패시 400
 
-### GET /notification/info
-알림센터 정보를 가져오는 API
-- req
+### GET /api/activity/{id}/member
+
+해당 액티비티 참가자를 가져오는 API
+
+- req 
   - 로그인 토큰
 - res
-  - state 신청 수락 or 요청
-  - aid   해당 액티비티 id
+  - email 참가자 이메일
+  - nickname 참가자 닉네임

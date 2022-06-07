@@ -15,7 +15,7 @@ import panoplie.orgoal.service.MemberService;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
-@RequestMapping("/signin")
+@RequestMapping("/api/signin")
 public class SignInController {
 
     private final MemberService memberService;
