@@ -207,6 +207,8 @@ export default {
 
         // 받아온 정보 종합하여 push
         this.myActivities.push(temp);
+        console.log("this is myactivity object");
+        console.log(temp);
       });
 
       // 참여 액티비티 리스트
@@ -224,6 +226,8 @@ export default {
 
         // 받아온 정보 종합하여 push
         this.joinedActivities.push(temp2);
+        console.log("this is joinedactivity object");
+        console.log(temp2);
       });
     });
   },
