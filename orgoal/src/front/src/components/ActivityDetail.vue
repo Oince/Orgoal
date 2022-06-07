@@ -99,6 +99,7 @@ export default {
           console.log(res);
           window.alert("액티비티 참가 신청되었습니다!");
           this.$router.push({path: router.fullPath}); // 새로고침
+          doCancel();
         })
         .catch((err) => {
           console.log(err);
