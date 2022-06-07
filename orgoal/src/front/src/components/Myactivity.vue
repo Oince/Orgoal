@@ -206,7 +206,7 @@ export default {
           });
 
         // 받아온 정보 종합하여 push
-        this.myActivities.push(temp);
+        this.myActivities.value.push(temp);
         console.log("this is myactivity object");
         console.log(temp);
       });
@@ -225,7 +225,7 @@ export default {
         }
 
         // 받아온 정보 종합하여 push
-        this.joinedActivities.push(temp2);
+        this.joinedActivities.value.push(temp2);
         console.log("this is joinedactivity object");
         console.log(temp2);
       });
