@@ -148,8 +148,8 @@ export default {
     const store = useStore();
     const token = store.state.signin.token;
     const email = store.state.signin.email;
-    const myActivities = [];
-    const joinedActivities = [];
+    let myActivities = ref([]);
+    let joinedActivities = ref([]);
 
     // methods
     function getURLbyActivityID(aid) {
@@ -206,7 +206,8 @@ export default {
           });
 
         // 받아온 정보 종합하여 push
-        this.myActivities.push(ref(temp).value);
+        this.myActivities.value = [];
+        this.myActivities.value.push(temp);
         console.log("this is myactivity object");
         console.log(temp);
       });
@@ -225,7 +226,8 @@ export default {
         }
 
         // 받아온 정보 종합하여 push
-        this.joinedActivities.push(ref(temp2).value);
+        this.joinedActivities.value = [];
+        this.joinedActivities.value.push(temp2);
         console.log("this is joinedactivity object");
         console.log(temp2);
       });
