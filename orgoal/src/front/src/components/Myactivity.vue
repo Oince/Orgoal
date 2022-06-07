@@ -74,7 +74,7 @@
                     <td class="table-button">
                       <button
                         class="accept-button"
-                        @click="doAccept(activity.aid)"
+                        @click="doAccept(activity.aid, person.email)"
                       >
                         수락
                       </button>
@@ -155,14 +155,13 @@ export default {
     function getURLbyActivityID(aid) {
       return "/activity/" + aid.toString();
     }
-    function doAccept(aid) {
+    function doAccept(aid, email) {
       let config = {
         headers: {
           token: token,
         },
       };
-      let URI =
-        "/api/activity/" + aid.toString() + "/accept?email=" + this.email;
+      let URI = "/api/activity/" + aid.toString() + "/accept?email=" + email;
       axios
         .post(URI, {}, config)
         .then(() => {
