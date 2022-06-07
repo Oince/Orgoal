@@ -4,6 +4,7 @@ export const signin = {
   namespaced: true,
   state: () => ({
     token: "",
+    email: "",
   }),
   getters: {
     hasToken(state) {
@@ -17,6 +18,10 @@ export const signin = {
     // token 설정
     setToken(state, token) {
       state.token = token;
+    },
+    // email 설정
+    setEmail(state, email) {
+      state.email = email;
     },
     // 초기화
     reset(state) {
