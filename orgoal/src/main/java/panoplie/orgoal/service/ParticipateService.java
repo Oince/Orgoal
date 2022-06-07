@@ -64,6 +64,10 @@ public class ParticipateService {
 
     }
 
+    public List<Applicant> getAcceptList(int aid) {
+        return participateRepository.acceptList(aid);
+    }
+
     public List<ParticipatingActivity> getParticipateList(int mid) {
         return participateRepository.participatingList(mid);
     }

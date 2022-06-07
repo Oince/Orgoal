@@ -3,7 +3,6 @@ package panoplie.orgoal.repository;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import panoplie.orgoal.domain.Applicant;
 import panoplie.orgoal.domain.Participate;
@@ -26,6 +25,12 @@ public interface ParticipateRepository {
             "where member.mid = participate.mid and " +
             "aid = #{aid} and state = 'W'")
     List<Applicant> waitingList(int aid);
+
+    @Select("Select email, nickname " +
+            "from member, participate " +
+            "where member.mid = participate.mid and " +
+            "aid = #{aid} and state = 'A'")
+    List<Applicant> acceptList(int aid);
 
     @Insert("Update participate " +
             "set state = 'A' " +
