@@ -138,7 +138,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 export default {
@@ -148,8 +148,8 @@ export default {
     const store = useStore();
     const token = store.state.signin.token;
     const email = store.state.signin.email;
-    const myActivities = [];
-    const joinedActivities = [];
+    let myActivities = ref([]);
+    let joinedActivities = ref([]);
 
     // methods
     function getURLbyActivityID(aid) {
@@ -158,7 +158,7 @@ export default {
     function doAccept(aid) {
       let config = {
         headers: {
-          token: this.token,
+          token: token,
         },
       };
       let URI =
@@ -170,6 +170,73 @@ export default {
         })
         .catch((err) => console.log(err));
     }
+    function updatePage() {
+      console.log("화면 재랜더링");
+      this.$forceUpdate();
+    }
+
+    // lifecycle hook
+    onMounted(() => {
+      let config = {
+        headers: {
+          token: token,
+        },
+      };
+      axios.get("/api/mypage/activity", config)
+        .then((response) => {
+          console.log("GET Mypage Activity SUCCESS");
+
+          // 개설 액티비티 리스트
+          response.data.list1.forEach((activity) => {
+            // 임시 객체로 원하는 모양 만들기
+            let temp = activity;
+            // 참여자 받아오기
+            axios
+              .get("/api/activity/" + activity.aid.toString() + "/member", config)
+              .then((response1) => {
+                temp.member = response1.data;
+                // 신청자 받아오기
+                axios
+                  .get("/api/activity/" + activity.aid.toString() + "/list", config)
+                  .then((response2) => {
+                    temp.apply = response2.data;
+                    // 받아온 정보 종합하여 push
+                    myActivities.value.push(temp);
+                    console.log("this is myactivity object");
+                    console.log(myActivities);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+
+          // 참여 액티비티 리스트
+          response.data.list2.forEach((activity) => {
+            // 임시 객체로 원하는 모양 만들기
+            let temp2 = activity;
+            // 참여자 받아오기
+            if (activity.state == "A") {
+              axios
+                .get("/api/activity/" + activity.aid.toString() + "/member", config)
+                .then((response1) => {
+                  temp2.member = response1.data;
+                  // 받아온 정보 종합하여 push
+                  joinedActivities.value.push(temp2);
+                  console.log("this is joinedactivity object");
+                  console.log(joinedActivities);
+                });
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+
     return {
       token,
       email,
@@ -177,60 +244,10 @@ export default {
       joinedActivities,
       getURLbyActivityID,
       doAccept,
+      updatePage,
     };
   },
-  created() {
-    let config = {
-      headers: {
-        token: this.token,
-      },
-    };
-    axios.get("/api/mypage/activity", config).then((response) => {
-      console.log("GET Mypage Activity SUCCESS");
-
-      // 개설 액티비티 리스트
-      response.data.list1.forEach((activity) => {
-        // 임시 객체로 원하는 모양 만들기
-        let temp = activity;
-        // 참여자 받아오기
-        axios
-          .get("/api/activity/" + activity.aid.toString() + "/member", config)
-          .then((response1) => {
-            temp.member = response1.data;
-          });
-        // 신청자 받아오기
-        axios
-          .get("/api/activity/" + activity.aid.toString() + "/list", config)
-          .then((response2) => {
-            temp.apply = response2.data;
-          });
-
-        // 받아온 정보 종합하여 push
-        this.myActivities.push(ref(temp).value);
-        console.log("this is myactivity object");
-        console.log(temp);
-      });
-
-      // 참여 액티비티 리스트
-      response.data.list2.forEach((activity) => {
-        // 임시 객체로 원하는 모양 만들기
-        let temp2 = activity;
-        // 참여자 받아오기
-        if (activity.state == "A") {
-          axios
-            .get("/api/activity/" + activity.aid.toString() + "/member", config)
-            .then((response1) => {
-              temp2.member = response1.data;
-            });
-        }
-
-        // 받아온 정보 종합하여 push
-        this.joinedActivities.push(ref(temp2).value);
-        console.log("this is joinedactivity object");
-        console.log(temp2);
-      });
-    });
-  },
+  
 };
 </script>
 
