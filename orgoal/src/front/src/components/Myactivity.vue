@@ -138,7 +138,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { getCurrentInstance, ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 export default {
@@ -175,8 +175,6 @@ export default {
       this.$forceUpdate();
     }
 
-    const instance = getCurrentInstance();
-
     // lifecycle hook
     onMounted(() => {
       let config = {
@@ -197,26 +195,24 @@ export default {
               .get("/api/activity/" + activity.aid.toString() + "/member", config)
               .then((response1) => {
                 temp.member = response1.data;
-              })
-              .catch((err) =>{
-                console.log(err);
-              });
-            // 신청자 받아오기
-            axios
-              .get("/api/activity/" + activity.aid.toString() + "/list", config)
-              .then((response2) => {
-                temp.apply = response2.data;
+                // 신청자 받아오기
+                axios
+                  .get("/api/activity/" + activity.aid.toString() + "/list", config)
+                  .then((response2) => {
+                    temp.apply = response2.data;
+                    // 받아온 정보 종합하여 push
+                    myActivities.value.push(temp);
+                    console.log("this is myactivity object");
+                    console.log(myActivities);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 console.log(err);
               });
-
-            // 받아온 정보 종합하여 push
-            myActivities.value.push(temp);
           });
-
-          console.log("this is myactivity object");
-          console.log(myActivities);
 
           // 참여 액티비티 리스트
           response.data.list2.forEach((activity) => {
@@ -228,17 +224,13 @@ export default {
                 .get("/api/activity/" + activity.aid.toString() + "/member", config)
                 .then((response1) => {
                   temp2.member = response1.data;
+                  // 받아온 정보 종합하여 push
+                  joinedActivities.value.push(temp2);
+                  console.log("this is joinedactivity object");
+                  console.log(joinedActivities);
                 });
             }
-
-            // 받아온 정보 종합하여 push
-            joinedActivities.value.push(temp2);
           });
-
-          console.log("this is joinedactivity object");
-          console.log(joinedActivities);
-
-          instance.ctx.updatePage(); // 강제적으로 화면 재렌더링
         })
         .catch((err) => {
           console.log(err);
