@@ -98,7 +98,7 @@ export default {
         .then((res) => {
           console.log(res);
           window.alert("액티비티 참가 신청되었습니다!");
-          this.$router.go(); // 새로고침
+          this.$router.push(this.$router.fullPath); // 새로고침
         })
         .catch((err) => {
           console.log(err);
